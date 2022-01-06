@@ -1,0 +1,19 @@
+*, *::before, *::after {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+div.scroll{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 80vh;
+    width: 50vw;
+    background-color: white;
+    margin-left: 1em;
+    justify-content: center;
+    padding: 1em;
+}
+.body{
+  background-color: black;
+}
+#userInput{
+    margin-left: 1.1em;
+}
