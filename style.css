@@ -7,13 +7,37 @@ div.scroll{
     height: 80vh;
     width: 50vw;
     background-color: white;
-    margin-left: 1em;
+    margin-left: 1me;
+    margin-right: 1em;
+    justify-content: center;
+    padding: 1em;
+    float: left;
+}
+/* this allows it to be scrollabel */
+.body{
+  background-color: black; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to right, red, black);
+}
+
+/* You can change the background of the body, I think the div should probably stay black on white*/
+#userInput{
+    margin-left: 5em;
+}
+/* Why adding a background colour for the input? sorry didnt realise that was the input section */ 
+#main{
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     padding: 1em;
 }
-.body{
-  background-color: black;
-}
-#userInput{
-    margin-left: 1.1em;
+.card{
+    background-color: white;
+    height: 80vh;
+    width: 20vw;
+    margin-left: 1me;
+    margin-right: 1em;
+    padding: 1em;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
