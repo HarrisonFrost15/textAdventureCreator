@@ -30,6 +30,13 @@ div.scroll{
     justify-content: center;
     padding: 1em;
 }
+#subMain{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: fit-content;
+    height: fit-content;
+}
 .card{
     background-color: white;
     height: 80vh;
