@@ -204,16 +204,16 @@ function execute (command:string){
         // }
     }
     
-    else if(words[0] == "examine"){
-        if (item is in inventory){
-            return player.place.items[words[1]].examination
-        }else{
-            return "very sadly, you cannot examine this"
-        }
-    }
+    // else if(words[0] == "examine"){
+    //     if (item is in inventory){
+    //         return player.place.items[words[1]].examination
+    //     }else{
+    //         return "very sadly, you cannot examine this"
+    //     }
+    // }
 
-    output (player.place.fullDescription())
-}
+//     output (player.place.fullDescription())
+// }
 
 
 //from here down is the save game function
