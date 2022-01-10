@@ -129,6 +129,7 @@ function execute (command:string){
         //     let cabin = new Place("You find yourself awake in a cabin alone with no memory of how you got there.","Reach outside.")
         //     let outsideOfCabin = new Place("You are now outside of the cabin, finding yourself in the middle of an unknown, unfamiliar forest","You need to gather supplies")
         // }
+
         let cabin = new Place("Cabin", "You find yourself awake in a cabin alone with no memory of how you got there.","Reach outside.")
         cabin.addItem("key", new Item("Key", 1, cabin, "It appears to be an antique brass key", "This key looks like it would fit the door", true))
         cabin.addItem("hat", new Item("Hat", 2, cabin, "It appears to be a wooly hat", "This hat looks like it could keep some ears warm", true))
@@ -158,6 +159,9 @@ function execute (command:string){
         let bottomRightCabin = rightSideCabin.addPlace("south", new Place("bottomRightCabin","You find yourself at the back right of the cabin",""));
 
         let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin","",""))
+
+        player = new Player(cabin,0,true)
+        player.place.items.door.locked = true
     }
 
     else if (words[0]=="create"){
@@ -273,8 +277,7 @@ function output (input:string){
 // let room = new Place("You are now inside an empty room.","")
 
 
-player = new Player(cabin,0,true)
-player.place.items.door.locked = true
+
 
 
 // Gets the id of userInput and stores it in a variable, then adds an event handler when a key is pressed it executes a function

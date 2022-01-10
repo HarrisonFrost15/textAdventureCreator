@@ -132,6 +132,8 @@ function execute(command) {
         rightSideCabin.addItem("firewoodStorage", new Item("Firewood Storage", 10, outsideCabin, "It appears to be storage for firewood", "This firewood storage bin looks like it contains 25 pieces of firewood", false));
         let bottomRightCabin = rightSideCabin.addPlace("south", new Place("bottomRightCabin", "You find yourself at the back right of the cabin", ""));
         let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin", "", ""));
+        player = new Player(cabin, 0, true);
+        player.place.items.door.locked = true;
     }
     else if (words[0] == "create") {
     }
@@ -214,8 +216,6 @@ function output(input) {
     document.getElementById("outputBox").innerHTML += input + "<br>";
 }
 // let room = new Place("You are now inside an empty room.","")
-player = new Player(cabin, 0, true);
-player.place.items.door.locked = true;
 // Gets the id of userInput and stores it in a variable, then adds an event handler when a key is pressed it executes a function
 let userInput = document.getElementById("userInput");
 userInput.addEventListener("keypress", keyPressed);
