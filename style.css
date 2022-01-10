@@ -41,3 +41,11 @@ div.scroll{
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+#createdAdventure{
+    display: none;
+}
+
+#newButtons{
+    display: none;
+}
