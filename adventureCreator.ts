@@ -21,7 +21,7 @@ function addStartRoom(){
 }
 
 function newPlaceForm(){
-
+    let placeName = (<HTMLInputElement>document.getElementById())
 }
 
 function newItemForm(){
