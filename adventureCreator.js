@@ -12,6 +12,7 @@ function addStartRoom() {
     document.getElementById("newButtons").style.display = "inline";
 }
 function newPlaceForm() {
+    // let placeName = (<HTMLInputElement>document.getElementById())
 }
 function newItemForm() {
 }
