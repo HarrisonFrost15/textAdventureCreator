@@ -1,6 +1,7 @@
 *, *::before, *::after {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
 div.scroll{
     overflow-x: hidden;
     overflow-y: auto;
@@ -13,7 +14,8 @@ div.scroll{
     padding: 1em;
     float: left;
 }
-/* this allows it to be scrollabel */
+
+/* this allows it to be scrollable */
 .body{
   background-color: black; /* For browsers that do not support gradients */
   background-image: linear-gradient(to right, red, black);
@@ -23,6 +25,7 @@ div.scroll{
 #userInput{
     margin-left: 5em;
 }
+
 /* Why adding a background colour for the input? sorry didnt realise that was the input section */ 
 #main{
     display: flex;
@@ -30,12 +33,20 @@ div.scroll{
     justify-content: center;
     padding: 1em;
 }
+
+#subMain{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: fit-content;
+    height: fit-content;
+}
+
 .card{
+    display: none;
     background-color: white;
-    height: 80vh;
     width: 20vw;
-    margin-left: 1me;
-    margin-right: 1em;
+    margin: 1em;
     padding: 1em;
     justify-content: center;
     overflow-x: hidden;

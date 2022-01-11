@@ -15,25 +15,26 @@ class Player{
     }
 }
 
-// Creates a class that controls all of the properties for items, eg their weights and descriptions
+// Defines items that exist in the world, these can be obstacles or items the player can pick up.
 class Item {
     // itemName: string
     // weight: number
     // place: Place
     description: string = "No further information"
-    examination:string
     alight: boolean = false
     broken: boolean = false
     locked:boolean = false
     movable:boolean
+    closed:boolean = true
+    hidden:boolean = true
 
     
     // Constructor for new items.
-    constructor(public itemName: string, public weight:number, public place:Place, description:string, examination:string, movable:boolean) { 
+    constructor(public itemName:string, public weight:number, public place:Place, description:string, movable:boolean) { 
+        this.itemName = itemName
         this.weight = weight
         this.place = place
         this.description = description
-        this.examination = examination
         this.movable = movable
     }
 
@@ -41,19 +42,18 @@ class Item {
     
 }
 
-// Creates a class for places including properties such as including other nearby places, what items are in this location
+// // Creates a class for places including properties such as including other nearby places, what items are in this location
 class Place{
     name:string
-    description:string
+    description:string = "No further information"
     nearby: Record <string, Place> = {}
     items: Record <string, Item> = {}
     hints: string 
     
-    
     constructor(name:string, description:string, hints:string){
         this.name = name
-        this.description=description
-        this.nearby={}
+        this.description = description
+        this.nearby = {}
         this.hints = hints
     }
     
@@ -66,7 +66,7 @@ class Place{
         `
     }
 
-    // Links a new place to the current one and also creates a reverse link so you can go back to the previous place
+//     // Links a new place to the current one and also creates a reverse link so you can go back to the previous place
     addPlace(direction:string,place:Place){
         this.nearby[direction]=place
         let previousDirection = ""
