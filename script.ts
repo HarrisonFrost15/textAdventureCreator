@@ -235,12 +235,7 @@ function execute (command:string){
             output ("I don't think you can drink this")
         }
     }
-    else if (words[0] == "inventory"){
-        // let inventoryList = (player.inventory).value;
-        // for(let i = 0;i < inventoryList ;i++){
-            
-        // }
-    }
+    
     
     else if (words[0] == "examine"){
         if (player.place.items.hasOwnProperty(words[1])){
