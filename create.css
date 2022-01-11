@@ -1,0 +1,24 @@
+*, *::before, *::after {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#createdAdventure{
+    display: none;
+}
+
+#newButtons{
+    display: none;
+}
+
+#newPlace{
+    display: none;
+}
+
+#newItem{
+    display: none;
+}
+
+#editor {
+    display: flex;
+    
+}

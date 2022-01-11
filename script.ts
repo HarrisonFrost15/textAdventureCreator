@@ -9,42 +9,54 @@ if(s!=null){
 }
 
 //Starts default game
+
+// let ob= document.getElementById("outputBox")
+
+
+// function scrollToBottom(){
+//     ob!.scrollTop=ob!.scrollHeight
+// }
+
+// ob!.addEventListener("mouseover", function (){
+//     clearInterval()
+// })
+
 let startButton = <HTMLButtonElement> document.getElementById("play")
 startButton.addEventListener("click", startDefault)
 
 function startDefault(){
 
     let cabin = new Place("Cabin", "You find yourself awake in a cabin alone with no memory of how you got there.","Reach outside.")
-    // needs to be on top of table not in - cabin.addItem("key", new Item("key",1, cabin, "It appears to be an antique brass key", "This key looks like it would a door", true))
-    cabin.addItem("hat", new Item("hat",2, cabin, "It appears to be a wooly hat", "This hat looks like it could keep some ears warm", true, true))
-    cabin.addItem("coat", new Item("coat", 3, cabin, "It appears to be a windproof coat", "This coat looks like it would keep the wind off any exposed skin", true, true ))
-    cabin.addItem("gloves", new Item("gloves", 2, cabin, "It appears to be a pair of wooly gloves", "These gloves would keep some hands warm", true, true ))
-    cabin.addItem("boots", new Item("boots", 2, cabin, "It appears to be a pair of work boots", "These boots look nice and comfy", true, true ))
-    cabin.addItem("door", new Item("door", 10, cabin, "This is a door", "This door appears to be locked, find the key to unlock and open the door", false, true))
-    cabin.addItem("window", new Item("window", 10, cabin, "It appears to be a normal window with a pane of glass in", "It appears that the window is slightly a jar", false, true))
-    cabin.addItem("fireplace", new Item("fireplace", 10, cabin, "It appears to be a brick fireplace", "This fireplace seems to have a firewood holder in middle of it", false, false))
-    cabin.addItem("bed", new Item("bed", 10, cabin, "It appears to be a messy bed as if someone woke up in it", "This bed looks comfy to sleep in", false, true))
-    cabin.addItem("table", new Item("table", 10, cabin, "it appears to be an oak table with a single chair", "This table looks like it has a key on it",false, true))
-    cabin.addItem("chair", new Item("chair", 10, cabin, "it appears to be an oak chair", "This chair looks like it would we uncomfortable to sit in", false, true))
-    let drawer = new Item("drawer",15,cabin,"It appears to be an oak drawer","it happens to have a silver knife inside it",false, true)
+    cabin.addItem("key", new Item("key",1, cabin, "It appears to be an antique brass key", "This key looks like it would a door", true, false, true, false))
+    cabin.addItem("hat", new Item("hat",2, cabin, "It appears to be a wooly hat", "This hat looks like it could keep some ears warm", true, true, true, true))
+    cabin.addItem("coat", new Item("coat", 3, cabin, "It appears to be a windproof coat", "This coat looks like it would keep the wind off any exposed skin", true, true, true, true ))
+    cabin.addItem("gloves", new Item("gloves", 2, cabin, "It appears to be a pair of wooly gloves", "These gloves would keep some hands warm", true, true, true, true ))
+    cabin.addItem("boots", new Item("boots", 2, cabin, "It appears to be a pair of work boots", "These boots look nice and comfy", true, true,true, true ))
+    cabin.addItem("door", new Item("door", 10, cabin, "This is a door", "This door appears to be locked, find the key to unlock and open the door", false, true, false, true))
+    cabin.addItem("window", new Item("window", 10, cabin, "It appears to be a normal window with a pane of glass in", "It appears that the window is slightly a jar", false, true, false, false))
+    cabin.addItem("fireplace", new Item("fireplace", 10, cabin, "It appears to be a brick fireplace", "This fireplace seems to have a firewood holder in middle of it", false, false, false, true))
+    cabin.addItem("bed", new Item("bed", 10, cabin, "It appears to be a messy bed as if someone woke up in it", "This bed looks comfy to sleep in", false, true, false, true))
+    cabin.addItem("table", new Item("table", 10, cabin, "it appears to be an oak table with a single chair", "This table looks like it has a key on it",false, true, false, true))
+    cabin.addItem("chair", new Item("chair", 10, cabin, "it appears to be an oak chair", "This chair looks like it would we uncomfortable to sit in", false, true, true, false))
+    let drawer = new Item("drawer",15,cabin,"It appears to be an oak drawer","it happens to have a silver knife inside it",false, true, false, false)
     cabin.addItem("drawer", drawer)
-    drawer.contents["knife"]= new Item("knife",2,cabin,"It appears to be a silver knife","This knife can be used to attack", true, false)
+    drawer.contents["knife"]= new Item("knife",2,cabin,"It appears to be a silver knife","This knife can be used to attack", true, false, true, false)
 
 
     let outsideCabin = cabin.addPlace("north", new Place("outsideCabin","You are now outside of the cabin, finding yourself in the middle of an unknown forest.","You need to collect supplies."), new Exit(true))
-    outsideCabin.addItem("Backpack", new Item("Backpack", 2, outsideCabin, "It appears to be a hiking backpack", "This backpack looks like it could hold some items", false, true))
+    outsideCabin.addItem("Backpack", new Item("Backpack", 2, outsideCabin, "It appears to be a hiking backpack", "This backpack looks like it could hold some items", false, true, true, true))
 
     let topLeftCabin = outsideCabin.addPlace("west", new Place("topLeftCabin","You find yourself just ouside of the cabin to the left",""), new Exit(true));
-    topLeftCabin.addItem("Tree Stump", new Item("treeStump", 10, outsideCabin, "It appears that the stump has been used for splitting logs", "This tree stump appears to have an axe sticking in it with 4 pieces of firewood laying on the floor",false, false))
+    topLeftCabin.addItem("Tree Stump", new Item("treeStump", 10, outsideCabin, "It appears that the stump has been used for splitting logs", "This tree stump appears to have an axe sticking in it with 4 pieces of firewood laying on the floor",false, false, false, true))
     // needs to be on top of treeStump not in - topLeftCabin.addItem("Axe", new Item("Axe", 5, outsideCabin, "It appears to be a heavy steel axe with a wooden handle", "This axe looks like  it would be good for cutting tree down and splitting logs", false))
     let leftSideCabin = topLeftCabin.addPlace("south", new Place("leftSideCabin","You find yourself outside of the cabin, at the other side of the window",""), new Exit(true));
     let bottomLeftCabin = leftSideCabin.addPlace("south", new Place("bottomLeftCabin","You find yourself at the back left of the cabin",""), new Exit(true));
 
     let topRightCabin = outsideCabin.addPlace("east", new Place("topRightCabin","You find yourself just ouside of the cabin to the right",""), new Exit(true));
     let rightSideCabin = topRightCabin.addPlace("south", new Place("rightSideCabin","You find yourself outside of the cabin at the right side",""), new Exit(true));
-    let firewoodStorage = new Item("firewoodStorage", 10, outsideCabin, "It appears to be storage for firewood","This firewood storage bin looks like it contains 25 pieces of firewood",false, false)
+    let firewoodStorage = new Item("firewoodStorage", 10, outsideCabin, "It appears to be storage for firewood","This firewood storage bin looks like it contains 25 pieces of firewood",false, false, false, true)
     rightSideCabin.addItem("Firewood Storage", firewoodStorage)
-    firewoodStorage.contents["Firewood Log"]=new Item("Firewood Log", 3, outsideCabin, "It appears to be a piece of oak", "This firewood is perfect for burning", true, true    )
+    firewoodStorage.contents["Firewood Log"]=new Item("Firewood Log", 3, outsideCabin, "It appears to be a piece of oak", "This firewood is perfect for burning", true, true, false, true)
     let bottomRightCabin = rightSideCabin.addPlace("south", new Place("bottomRightCabin","You find yourself at the back right of the cabin",""), new Exit(true));
 
     let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin","You find yourself at the back of the cabin",""), new Exit(true))
@@ -55,6 +67,11 @@ function startDefault(){
     output (player.place.fullDescription())
 }
 
+let ob= <HTMLElement> document.getElementById("outputBox")
+function scrollToBottom(){
+    ob!.scrollTop=ob!.scrollHeight
+    }
+
 // Gets the id of userInput and stores it in a variable, then adds an event handler when a key is pressed it executes a function
 let userInput = <HTMLInputElement> document.getElementById("userInput")
 userInput.addEventListener("keypress", keyPressed)
@@ -64,7 +81,12 @@ function keyPressed (e:KeyboardEvent){
     if (e.key == "Enter"){
         execute(userInput.value)
         userInput.value = ""
+        
     }
+    if (e.key == 'Enter'){
+        scrollToBottom()
+    }
+
 }
 
 // Adds the output text to the end of the game text
@@ -138,7 +160,14 @@ function execute (command:string){
                 player.place.exits[words[2]].locked = false
                 output (`You unlock the ${words[2]} door`)
             }
+            else if (player.place.exits[words[2]].locked == true && ! player.inventory.hasOwnProperty("key")){
+                output ("You need a key")
+            }
+            else if (player.place.exits[words[2]].locked == false){
+                output ("This door is already unlocked")
+            }
         }
+        
         else {
             if (player.place.items[words[1]].locked && player.inventory.hasOwnProperty("key")){
                 player.place.items.obstacle.locked = false
@@ -201,6 +230,16 @@ function execute (command:string){
             delete player.inventory[words[1]]
         }
     }
+    
+    // else if (words[0]=="push"){
+    //     if(player.place.items[words[1]].pushable){
+    //        output("It cannot be pushed.")
+    //     }
+    //     else if( player.place.items[words[1]].pushable){
+    //         player.place.items[words[1]].pushable = true
+    //         output
+    //     }
+    // }
 
     else if (words[0]=="hint"){
         
@@ -235,13 +274,19 @@ function execute (command:string){
             output ("I don't think you can drink this")
         }
     }
-    else if (words[0] == "inventory"){
-        // let inventoryList = (player.inventory).value;
-        // for(let i = 0;i < inventoryList ;i++){
-            
-        // }
-    }
     
+    else if (words[0] == "throw"){
+        if ((player.place.items[words[1]].throwable == true)){
+            player.place.items[words[3]].broken == true
+        }
+    }
+
+    else if (words[0] == "burn") {
+        if ((player.place.items[words[1]].flammable == true)) {
+            player.place.items[words[1]].alight == true
+        }
+    }
+
     else if (words[0] == "examine"){
         if (player.place.items.hasOwnProperty(words[1])){
             output(`${player.place.items[words[1]].description}<br>`)
@@ -250,7 +295,7 @@ function execute (command:string){
             output(`${player.inventory[words[1]].description}<br>`)
         }
         else{
-            output ("very sadly, you cannot examine this")
+            output ("Sadly, you cannot examine this")
         }
     }
 
@@ -282,7 +327,3 @@ function savesaveGame(){
     let s = JSON.stringify((<any>JSON).decycle(player))
     localStorage.setItem("game",s)
 }
-
-
-
-

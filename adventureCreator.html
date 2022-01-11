@@ -4,50 +4,78 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RPG Game Creator.</title>
     <script src="cycle.js" defer></script>
     <script src="classes.js" defer></script>
     <script src=adventureCreator.js defer></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="create.css">
 </head>
 
 <body>
     <h3>Welcome to the adventure creator</h3>
-    <div id="newButtons">
-        <button id="newPlace">New Place</button>
-        <button id="newItem">New Item</button>
-    </div>
-    <div id="startingRoom">
-        <h4>Please create a starting room</h5>
-        <form>
-            <label for="startLocName">Place name: </label><input type="text" name="startLocName" id="startLocName"><br>
-            <label for="startLocDescription">Place description: </label><input type="text" name="startLocDescription" id="startLocDescription"><br>
-            <label for="startHints">Add any hints about this location </label><input type="text" name="startHints" id="startHints"><br>
-        </form>
-        <button id="submitStartingRoom">Ok!</button>
-    </div>
+    
+    <div id="editor">
+        <div id="nameList">
+            <div id="placeList">
+            
+            </div>
+            <div id="itemList">
 
-    <div id="newPlace">
-        Enter the details for the new place
-        <form >
-            <label for="placeName">What is this place called: </label><input type="text" name="placeName" id="placeName"><br>
-            <label for="placeDescription">Write a description of the place: </label><input type="text" name="placeDescription" id="placeDescription"><br>
-            <label for="placeHints">Add any hints for this location: </label><input type="text" name="placeHints" id="placeHints">
-            <label for="placeDirection">Which direction is it relevant to the previous location: </label> <br>
-            <select name="placeDirection" id="placeDirection">
-                <option value="north">North</option>
-                <option value="east">East</option>
-                <option value="south">South</option>
-                <option value="west">West</option>
-                <option value="up">Up</option>
-                <option value="down">Down</option>
-            </select>
-        </form>
+            </div>
+        </div>
+        
+        <div>
 
-    </div>
+            <div id="newButtons">
+                <button id="newPlaceButton">New Place</button>
+                <button id="newItemButton">New Item</button>
+            </div>
 
-    <div id="newItem">
+            <div id="startingRoom">
+                <h4>Please create a starting room</h5>
+                <form>
+                    <label for="startLocName">Place name: </label><input type="text" name="startLocName" id="startLocName"><br>
+                    <label for="startLocDescription">Place description: </label><input type="text" name="startLocDescription" id="startLocDescription"><br>
+                    <label for="startHints">Add any hints about this location </label><input type="text" name="startHints" id="startHints"><br>
+                </form>
+                <button id="submitStartingRoom">Ok!</button>
+            </div>
 
+            <div id="newPlace">
+                Enter the details for the new place<br><br>
+                <form >
+                    <label for="placeName">What is this place called: </label><input type="text" name="placeName" id="placeName"><br>
+                    <label for="placeDescription">Write a description of the place: </label><input type="text" name="placeDescription" id="placeDescription"><br>
+                    <label for="placeHints">Add any hints for this location: </label><input type="text" name="placeHints" id="placeHints"><br>
+                    <label for="placeDirection">Which direction is it related to the previous location: </label> 
+                    <select name="placeDirection" id="placeDirection">
+                        <option value="north">North</option>
+                        <option value="east">East</option>
+                        <option value="south">South</option>
+                        <option value="west">West</option>
+                        <option value="up">Up</option>
+                        <option value="down">Down</option>
+                    </select><br>
+                    <label for="previousPlace">What was the previous place</label><input type="text" name="previousPlace" id="previousPlace"><br>
+                    <label for="locked">Is the door between these places locked? (Leave unticked if there is no door) </label><input type="checkbox" name="locked" id="locked" value=true>
+
+                </form>
+                <button id="submitPlace">Ok!</button>
+            </div>
+
+            <div id="newItem">
+                Fill in the details for the item<br><br>
+                <form>
+                    <label for="itemName">What is the item's name: </label><input type="text" name="itemName" id="itemName"><br>
+                    <label for="itemDescription">Give some information about the item: </label><input type="text" name="itemDescription" id="itemDescription"><br>
+                    Properties <br>
+                    <label for="edible">Edible: </label><input type="checkbox" name="" id="">
+                </form>
+                
+
+                <button id="submitItem">Ok!</button>
+            </div>
+        </div>
     </div>
 
     <div id="createdAdventure">

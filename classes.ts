@@ -29,23 +29,29 @@ class Item {
     alight: boolean = false
     broken: boolean = false
     locked:boolean = false
-    movable:boolean
+    collectable:boolean
     open:boolean = false
     hidden:boolean = true
     contents: Record <string, Item> = {}
+    pushable: boolean = false
     edible : boolean = false
     drinkable : boolean = false
     poisonous: boolean = false
     breakable: boolean 
+    throwable: boolean
+    flammable: boolean
+
     // Constructor for new items.
-    constructor(public itemName:string, public weight:number, public place:Place, description:string, examination:string, movable:boolean, breakable:boolean) { 
+    constructor(public itemName:string, public weight:number, public place:Place, description:string, examination:string, collectable:boolean, breakable:boolean, throwable:boolean, flammable:boolean) { 
         this.itemName = itemName
         this.weight = weight
         this.place = place
         this.description = description
         this.examination = examination
-        this.movable = movable
+        this.collectable = collectable
         this.breakable = breakable
+        this.throwable = throwable
+        this.flammable = flammable
     }
 
     // Methods related to items

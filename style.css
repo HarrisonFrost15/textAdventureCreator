@@ -5,6 +5,7 @@
 div.scroll{
     overflow-x: hidden;
     overflow-y: auto;
+    scroll-behavior: smooth;
     height: 80vh;
     width: 50vw;
     background-color: white;
@@ -13,12 +14,17 @@ div.scroll{
     justify-content: center;
     padding: 1em;
     float: left;
+    border-style: solid;
+    border-color: black;
+    border-width: 0.5em;
+    border-radius: 0.5em;
 }
 
 /* this allows it to be scrollable */
 .body{
-  background-color: black; /* For browsers that do not support gradients */
-  background-image: linear-gradient(to right, red, black);
+  background-image: url(https://wallpapercave.com/wp/wp9767078.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* You can change the background of the body, I think the div should probably stay black on white*/
@@ -32,6 +38,11 @@ div.scroll{
     flex-wrap: wrap;
     justify-content: center;
     padding: 1em;
+}
+
+#hintbox{
+    width: 30em;
+    height: 30em;
 }
 
 #subMain{
@@ -51,12 +62,9 @@ div.scroll{
     justify-content: center;
     overflow-x: hidden;
     overflow-y: auto;
+    border-style: solid;
+    border-color: black;
+    border-width: 0.5em;
+    border-radius: 0.5em;
 }
 
-#createdAdventure{
-    display: none;
-}
-
-#newButtons{
-    display: none;
-}

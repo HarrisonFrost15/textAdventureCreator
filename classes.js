@@ -29,16 +29,19 @@ class Item {
     alight = false;
     broken = false;
     locked = false;
-    movable;
+    collectable;
     open = false;
     hidden = true;
     contents = {};
+    pushable = false;
     edible = false;
     drinkable = false;
     poisonous = false;
     breakable;
+    throwable;
+    flammable;
     // Constructor for new items.
-    constructor(itemName, weight, place, description, examination, movable, breakable) {
+    constructor(itemName, weight, place, description, examination, collectable, breakable, throwable, flammable) {
         this.itemName = itemName;
         this.weight = weight;
         this.place = place;
@@ -47,8 +50,10 @@ class Item {
         this.place = place;
         this.description = description;
         this.examination = examination;
-        this.movable = movable;
+        this.collectable = collectable;
         this.breakable = breakable;
+        this.throwable = throwable;
+        this.flammable = flammable;
     }
 }
 // Creates a class for places including properties such as including other nearby places, what items are in this location
