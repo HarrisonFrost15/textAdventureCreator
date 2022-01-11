@@ -1,18 +1,12 @@
 "use strict"
-//part of save game function
-// let game:Game[]=[]
+
 
 let player:Player
 
-// let s:string=localStorage.getItem("game")!
-// if(s!=null){
-//     player=JSON.parse(s)
-// }
-
-// class Game{
-//     progress:any="" //new class for the save game
-// }
-
+let s:string=localStorage.getItem("game")!
+if(s!=null){
+    player = ((<any>JSON).retrocycle)((<any>JSON).parse(s));
+}
 
 //Starts default game
 let startButton = <HTMLButtonElement> document.getElementById("play")
@@ -21,36 +15,41 @@ startButton.addEventListener("click", startDefault)
 function startDefault(){
 
     let cabin = new Place("Cabin", "You find yourself awake in a cabin alone with no memory of how you got there.","Reach outside.")
-    cabin.addItem("key", new Item("key",1, cabin, "It appears to be an antique brass key", true))
-    cabin.addItem("hat", new Item("hat",2, cabin, "It appears to be a wooly hat", true))
-    cabin.addItem("coat", new Item("coat", 3, cabin, "It appears to be a windproof coat", true ))
-    cabin.addItem("gloves", new Item("gloves", 2, cabin, "It appears to be a pair of wooly gloves", true ))
-    cabin.addItem("boots", new Item("boots", 2, cabin, "It appears to be a pair of work boots", true ))
-    cabin.addItem("door", new Item("door", 10, cabin, "This is a door", false))
-    cabin.addItem("window", new Item("window", 10, cabin, "It appears to be a normal window with a pane of glass in", false))
-    cabin.addItem("fireplace", new Item("fireplace", 10, cabin, "It appears to be a brick fireplace", false))
-    cabin.addItem("bed", new Item("bed", 10, cabin, "It appears to be a messy bed as if someone woke up in it", false))
-    cabin.addItem("table", new Item("table", 10, cabin, "it appears to be an oak table with a single chair", false))
-    cabin.addItem("chair", new Item("chair", 10, cabin, "it appears to be an oak chair", false))
+    // needs to be on top of table not in - cabin.addItem("key", new Item("key",1, cabin, "It appears to be an antique brass key", "This key looks like it would a door", true))
+    cabin.addItem("hat", new Item("hat",2, cabin, "It appears to be a wooly hat", "This hat looks like it could keep some ears warm", true, true))
+    cabin.addItem("coat", new Item("coat", 3, cabin, "It appears to be a windproof coat", "This coat looks like it would keep the wind off any exposed skin", true, true ))
+    cabin.addItem("gloves", new Item("gloves", 2, cabin, "It appears to be a pair of wooly gloves", "These gloves would keep some hands warm", true, true ))
+    cabin.addItem("boots", new Item("boots", 2, cabin, "It appears to be a pair of work boots", "These boots look nice and comfy", true, true ))
+    cabin.addItem("door", new Item("door", 10, cabin, "This is a door", "This door appears to be locked, find the key to unlock and open the door", false, true))
+    cabin.addItem("window", new Item("window", 10, cabin, "It appears to be a normal window with a pane of glass in", "It appears that the window is slightly a jar", false, true))
+    cabin.addItem("fireplace", new Item("fireplace", 10, cabin, "It appears to be a brick fireplace", "This fireplace seems to have a firewood holder in middle of it", false, false))
+    cabin.addItem("bed", new Item("bed", 10, cabin, "It appears to be a messy bed as if someone woke up in it", "This bed looks comfy to sleep in", false, true))
+    cabin.addItem("table", new Item("table", 10, cabin, "it appears to be an oak table with a single chair", "This table looks like it has a key on it",false, true))
+    cabin.addItem("chair", new Item("chair", 10, cabin, "it appears to be an oak chair", "This chair looks like it would we uncomfortable to sit in", false, true))
+    let drawer = new Item("drawer",15,cabin,"It appears to be an oak drawer","it happens to have a silver knife inside it",false, true)
+    cabin.addItem("drawer", drawer)
+    drawer.contents["knife"]= new Item("knife",2,cabin,"It appears to be a silver knife","This knife can be used to attack", true, false)
 
-    let outsideCabin = cabin.addPlace("north", new Place("outsideCabin","You are now outside of the cabin, finding yourself in the middle of an unknown forest.","You need to collect supplies."))
-    outsideCabin.addItem("Backpack", new Item("", 2, outsideCabin, "It appears to be a hiking backpack", false))
 
-    let topLeftCabin = outsideCabin.addPlace("west", new Place("topLeftCabin","You find yourself just ouside of the cabin to the left",""));
-    topLeftCabin.addItem("Tree Stump", new Item("treeStump", 10, outsideCabin, "It appears that the stump has been used for splitting logs", false))
-    // topLeftCabin.addItem("Axe", new Item("Axe", 5, outsideCabin, "It appears to be a heavy steel axe with a wooden handle", "This axe looks like  it would be good for cutting tree down and splitting logs", false))
-    let leftSideCabin = topLeftCabin.addPlace("south", new Place("leftSideCabin","You find yourself outside of the cabin, at the other side of the window",""));
-    let bottomLeftCabin = leftSideCabin.addPlace("south", new Place("bottomLeftCabin","You find yourself at the back left of the cabin",""));
+    let outsideCabin = cabin.addPlace("north", new Place("outsideCabin","You are now outside of the cabin, finding yourself in the middle of an unknown forest.","You need to collect supplies."), new Exit(true))
+    outsideCabin.addItem("Backpack", new Item("Backpack", 2, outsideCabin, "It appears to be a hiking backpack", "This backpack looks like it could hold some items", false, true))
 
-    let topRightCabin = outsideCabin.addPlace("east", new Place("topRightCabin","You find yourself just ouside of the cabin to the right",""));
-    let rightSideCabin = topRightCabin.addPlace("south", new Place("rightSideCabin","You find yourself outside of the cabin at the right side",""));
-    rightSideCabin.addItem("Firewood Storage", new Item("firewoodStorage", 10, outsideCabin, "It appears to be storage for firewood", false))
-    // rightSideCabin.addItem("Firewood Log", new Item("Firewood Log", 3, outsideCabin, "It appears to be a piece of oak", "This firewood is perfect for burning", false))
-    let bottomRightCabin = rightSideCabin.addPlace("south", new Place("bottomRightCabin","You find yourself at the back right of the cabin",""));
+    let topLeftCabin = outsideCabin.addPlace("west", new Place("topLeftCabin","You find yourself just ouside of the cabin to the left",""), new Exit(true));
+    topLeftCabin.addItem("Tree Stump", new Item("treeStump", 10, outsideCabin, "It appears that the stump has been used for splitting logs", "This tree stump appears to have an axe sticking in it with 4 pieces of firewood laying on the floor",false, false))
+    // needs to be on top of treeStump not in - topLeftCabin.addItem("Axe", new Item("Axe", 5, outsideCabin, "It appears to be a heavy steel axe with a wooden handle", "This axe looks like  it would be good for cutting tree down and splitting logs", false))
+    let leftSideCabin = topLeftCabin.addPlace("south", new Place("leftSideCabin","You find yourself outside of the cabin, at the other side of the window",""), new Exit(true));
+    let bottomLeftCabin = leftSideCabin.addPlace("south", new Place("bottomLeftCabin","You find yourself at the back left of the cabin",""), new Exit(true));
 
-    let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin","You find yourself at the back of the cabin",""))
+    let topRightCabin = outsideCabin.addPlace("east", new Place("topRightCabin","You find yourself just ouside of the cabin to the right",""), new Exit(true));
+    let rightSideCabin = topRightCabin.addPlace("south", new Place("rightSideCabin","You find yourself outside of the cabin at the right side",""), new Exit(true));
+    let firewoodStorage = new Item("firewoodStorage", 10, outsideCabin, "It appears to be storage for firewood","This firewood storage bin looks like it contains 25 pieces of firewood",false, false)
+    rightSideCabin.addItem("Firewood Storage", firewoodStorage)
+    firewoodStorage.contents["Firewood Log"]=new Item("Firewood Log", 3, outsideCabin, "It appears to be a piece of oak", "This firewood is perfect for burning", true, true    )
+    let bottomRightCabin = rightSideCabin.addPlace("south", new Place("bottomRightCabin","You find yourself at the back right of the cabin",""), new Exit(true));
 
-    player = new Player(cabin,0,true)
+    let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin","You find yourself at the back of the cabin",""), new Exit(true))
+
+    player = new Player(cabin,0,true, 20,10)
     player.place.items.door.locked = true
 
     output (player.place.fullDescription())
@@ -93,7 +92,12 @@ function execute (command:string){
 
 
     if("north,east,south,west,up,down".includes(words[0])){
-        player.place=player.place.nearby[words[0]]
+        if (player.place.exits[words[0]].locked == false){
+            player.place=player.place.nearby[words[0]]
+        }
+        else if (player.place.exits[words[0]].locked == true){
+            output("The way is shut <br>")
+        }
     }
     
     
@@ -103,31 +107,51 @@ function execute (command:string){
         }
         
     }
+    
     else if (words[0] == "open"){
-        if (player.place.items[words[1]].closed == false){
-           player.place.items[words[1]].closed = false
-            output("It is now open")
+        let container=player.place.items[words[1]]
+        if (container.open){
+            output("It's already opened")
+        }
+        else{
+           container.open = true
+           for (let k in container.contents){
+               player.place.items[k]=container.contents[k]
+           }
+           output("It is now open")
         }
     }
+
     else if (words[0] == "close"){
-        if (player.place.items[words[1]].closed == true){
-            player.place.items[words[1]].closed = true
+        if (player.place.items[words[1]].open ){
+            player.place.items[words[1]].open = false
+            
+        }
+        else {
             output("It is already closed")
         }
     }
+    
     else if(words[0] == "unlock"){
-        if (player.place.items[words[1]].locked && player.inventory.hasOwnProperty("key")){
-            player.place.items.obstacle.locked = false
+        if (words[1] == "door"){
+            if (player.place.exits[words[2]].locked == true && player.inventory.hasOwnProperty("key")){
+                player.place.exits[words[2]].locked = false
+                output (`You unlock the ${words[2]} door`)
+            }
         }
-        else if (player.place.items[words[1]].locked && ! player.inventory.hasOwnProperty("key")){
-            output("You need a key")
-        }
-        else if (player.place.items[words[1]].locked == false){
-            output("It's already unlocked")
+        else {
+            if (player.place.items[words[1]].locked && player.inventory.hasOwnProperty("key")){
+                player.place.items.obstacle.locked = false
+            }
+            else if (player.place.items[words[1]].locked && ! player.inventory.hasOwnProperty("key")){
+                output("You need a key")
+            }
+            else if (player.place.items[words[1]].locked == false){
+                output("It's already unlocked")
+            }
         }
     }
     
-
     else if (words[0] == "lock"){
         if (player.place.items[words[1]].locked){
             output("This is already locked")
@@ -187,11 +211,30 @@ function execute (command:string){
         card.style.display = "block"
 
     }
-    
-    else if (words[0]=="shout"){
         
+    else if (words[0]=="eat"){                             
+        if ((player.place.items[words[1]].edible == true) && (player.place.items[words[1]].poisonous == false)) {
+            player.health += 5
+        }
+        else if ((player.place.items[words[1]].edible == true) && (player.place.items[words[1]].poisonous == true)) {
+            player.health -= 5
+        }
+        else if ((player.place.items[words[1]].edible == false)) {
+            output ("I don't think you want to eat this")
+        }
     }
     
+    else if (words[0]=="drink"){                             
+        if ((player.place.items[words[1]].drinkable == true) && (player.place.items[words[1]].poisonous == false)) {
+            player.stamina += 5
+        }
+        else if ((player.place.items[words[1]].drinkable == true) && (player.place.items[words[1]].poisonous == true)) {
+            player.stamina -= 5
+        }
+        else if ((player.place.items[words[1]].drinkable == false)) {
+            output ("I don't think you can drink this")
+        }
+    }
     else if (words[0] == "inventory"){
         // let inventoryList = (player.inventory).value;
         // for(let i = 0;i < inventoryList ;i++){
@@ -207,30 +250,39 @@ function execute (command:string){
             output(`${player.inventory[words[1]].description}<br>`)
         }
         else{
-            return "very sadly, you cannot examine this"
+            output ("very sadly, you cannot examine this")
         }
     }
 
+    else if (words[0] == "break"){
+        if (player.place.items[words[1]].breakable == true){
+            player.place.items[words[1]].broken = true;
+            output (`You have broken the ${player.place.items[words[1]]}`)
+        } 
+        else {
+            output ("You overestimated your powers. This cannot be broken.")
+        }
+    
+    }
+    
+
     output (player.place.fullDescription())
+    
+    
+    if (player.health == 0) {
+        player.alive == false
+        output ("Oh no, you are dead!")
+    }
+}
+
+let save = document.getElementById("save")
+save!.addEventListener("click", savesaveGame)
+
+function savesaveGame(){
+    let s = JSON.stringify((<any>JSON).decycle(player))
+    localStorage.setItem("game",s)
 }
 
 
-// //from here down is the save game function
-// function $(id:string):HTMLElement{
-//     return document.getElementById(id)!
 
 
-// }
-
-// function saveGame(){
-//     game.push ({progress:(<HTMLInputElement>$("userInput")!).value})
-//     savesaveGame()
-// }
-
-// let savebutton = document.getElementById("save")
-// savebutton!.addEventListener("click", saveGame)
-
-// function savesaveGame(){
-//     let s = JSON.stringify(player)
-//     localStorage.setItem("game",s)
-// }

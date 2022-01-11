@@ -5,11 +5,15 @@ class Player {
     place;
     time;
     alive = true;
-    constructor(place, time, alive) {
+    health = 20;
+    stamina = 10;
+    constructor(place, time, alive, health, stamina) {
         this.inventory = {};
         this.place = place;
         this.time = time;
         this.alive = alive;
+        this.health = health;
+        this.stamina = stamina;
     }
 }
 // Defines items that exist in the world, these can be obstacles or items the player can pick up.
@@ -21,14 +25,20 @@ class Item {
     // weight: number
     // place: Place
     description = "No further information";
+    examination;
     alight = false;
     broken = false;
     locked = false;
     movable;
-    closed = true;
+    open = false;
     hidden = true;
+    contents = {};
+    edible = false;
+    drinkable = false;
+    poisonous = false;
+    breakable;
     // Constructor for new items.
-    constructor(itemName, weight, place, description, movable) {
+    constructor(itemName, weight, place, description, examination, movable, breakable) {
         this.itemName = itemName;
         this.weight = weight;
         this.place = place;
@@ -36,15 +46,18 @@ class Item {
         this.weight = weight;
         this.place = place;
         this.description = description;
+        this.examination = examination;
         this.movable = movable;
+        this.breakable = breakable;
     }
 }
-// // Creates a class for places including properties such as including other nearby places, what items are in this location
+// Creates a class for places including properties such as including other nearby places, what items are in this location
 class Place {
     name;
     description = "No further information";
     nearby = {};
     items = {};
+    exits = {};
     hints;
     constructor(name, description, hints) {
         this.name = name;
@@ -58,11 +71,13 @@ class Place {
         ${player.place.description}<br>
         You see: ${listProperties(player.place.items)}<br>
         You can go: ${listProperties(player.place.nearby)}<br>
+        Inventory: ${listProperties(player.inventory)}<br>
         `;
     }
     //     // Links a new place to the current one and also creates a reverse link so you can go back to the previous place
-    addPlace(direction, place) {
+    addPlace(direction, place, exit) {
         this.nearby[direction] = place;
+        this.exits[direction] = exit;
         let previousDirection = "";
         if (direction == "north") {
             previousDirection = "south";
@@ -83,10 +98,17 @@ class Place {
             previousDirection = "up";
         }
         place.nearby[previousDirection] = this;
+        place.exits[previousDirection] = exit;
         return place; // return a reference to the place we just added (so we can chain adds)
     }
     addItem(name, item) {
         this.items[name] = item;
+    }
+}
+class Exit {
+    locked;
+    constructor(locked) {
+        this.locked = locked;
     }
 }
 //# sourceMappingURL=classes.js.map

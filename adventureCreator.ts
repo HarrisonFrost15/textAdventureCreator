@@ -3,8 +3,8 @@
 
 
 (<HTMLButtonElement>document.getElementById("submitStartingRoom")).addEventListener("click", addStartRoom);
-(<HTMLButtonElement>document.getElementById("newPlace")).addEventListener("click", newPlaceForm);
-(<HTMLButtonElement>document.getElementById("newItem")).addEventListener("click", newItemForm);
+(<HTMLButtonElement>document.getElementById("newPlace")).addEventListener("click", newPlace);
+(<HTMLButtonElement>document.getElementById("newItem")).addEventListener("click", newItem);
 
 
 
@@ -14,16 +14,22 @@ function addStartRoom(){
     let startHints = (<HTMLInputElement>document.getElementById("startHints")).value
 
     let start = new Place(startName, startDescription, startHints)
-    new Player(start,0,true);
+    new Player(start, 0, true, 20, 10);
 
     (<HTMLDivElement> document.getElementById("startingRoom")).style.display = "none";
     (<HTMLDivElement> document.getElementById("newButtons")).style.display = "inline"
 }
 
-function newPlaceForm(){
-    // let placeName = (<HTMLInputElement>document.getElementById())
+function newPlace(){
+    let placeName = (<HTMLInputElement>document.getElementById("placeName")).value
+    let placeDescription = (<HTMLInputElement>document.getElementById("placeDescription")).value
+    let placeHints = (<HTMLInputElement>document.getElementById("placeHints")).value
+    let placeDirection = (<HTMLInputElement>document.getElementById("placeDirection")).value
+
+
+
 }
 
-function newItemForm(){
+function newItem(){
 
 }
