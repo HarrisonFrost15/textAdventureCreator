@@ -1,6 +1,6 @@
 "use strict"
 //part of save game function
-let game:Game[]=[]
+// let game:Game[]=[]
 
 let player:Player
 
@@ -9,9 +9,9 @@ if(s!=null){
     player=JSON.parse(s)
 }
 
-class Game{
-    progress:any="" //new class for the save game
-}
+// class Game{
+//     progress:any="" //new class for the save game
+// }
 // Sets the player class, including all of the properties related to the player, for example where they are
 class Player{ 
     inventory: Record <string, Item>
@@ -112,17 +112,17 @@ class Place{
 // Takes the key press input from the listener event (see userInput variable) and if it was an enter calls the execute function using the users input.
 function keyPressed (e:KeyboardEvent){
     if (e.key == "Enter"){
-        execute(userInput.value)
+        // execute(userInput.value)
         userInput.value = ""
     }
 }
 
 // This function contains all of the command options available in the game
-function execute (command:string){
+// function execute (command:string){
     
-    let words = command.toLowerCase().split(" ")
+//     let words = command.toLowerCase().split(" ")
 
-    if (words[0]=="play"){
+    // if (words[0]=="play"){
         // let cabin = new Place("You find yourself awake in a cabin alone with no memory of how you got there.","Reach outside.")
         // let outsideOfCabin = new Place("You are now outside of the cabin, finding yourself in the middle of an unknown, unfamiliar forest","You need to gather supplies")
         // if (localStorage.getItem("game") === null) {
@@ -158,100 +158,100 @@ function execute (command:string){
         let bottomRightCabin = rightSideCabin.addPlace("south", new Place("bottomRightCabin","You find yourself at the back right of the cabin",""));
 
         let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin","",""))
-    }
+    // }
 
-    else if (words[0]=="create"){
+    // else if (words[0]=="create"){
         
-    }
+    // }
     
 
 
 
 
-    else if("north,east,south,west,up,down".includes(words[0])){
-        player.place=player.place.nearby[words[0]]
-    }
-    else if(words[0]=="climb"){
-        if("north,east,south,west,up,down".includes(words[1])){
-            player.place
-        }
-    }
+    // else if("north,east,south,west,up,down".includes(words[0])){
+    //     player.place=player.place.nearby[words[0]]
+    // }
+    // else if(words[0]=="climb"){
+    //     if("north,east,south,west,up,down".includes(words[1])){
+    //         player.place
+    //     }
+    // }
     
-    else if(words[0]=="jump"){
-        if("north,east,south,west".includes(words[1])){
-            player.place=player.place.nearby[words[1]]
-        }
+    // else if(words[0]=="jump"){
+    //     if("north,east,south,west".includes(words[1])){
+    //         player.place=player.place.nearby[words[1]]
+    //     }
         
-    }
+    // }
 
-    else if(words[0] == "unlock"){
-        if (player.place.items[words[1]].locked && player.inventory.hasOwnProperty("key")){
-            player.place.items.obstacle.locked = false
-        }
-        else if (player.place.items[words[1]].locked && ! player.inventory.hasOwnProperty("key")){
-            output("You need a key")
-        }
-        else if (player.place.items[words[1]].locked == false){
-            output("It's already unlocked")
-        }
-    }
+    // else if(words[0] == "unlock"){
+    //     if (player.place.items[words[1]].locked && player.inventory.hasOwnProperty("key")){
+    //         player.place.items.obstacle.locked = false
+    //     }
+    //     else if (player.place.items[words[1]].locked && ! player.inventory.hasOwnProperty("key")){
+    //         output("You need a key")
+    //     }
+    //     else if (player.place.items[words[1]].locked == false){
+    //         output("It's already unlocked")
+    //     }
+    // }
 
-    else if (words[0] == "lock"){
-        if (player.place.items[words[1]].locked){
-            output("This is already locked")
-        }
-        else if (player.place.items[words[1]].locked == false){
+    // else if (words[0] == "lock"){
+    //     if (player.place.items[words[1]].locked){
+    //         output("This is already locked")
+    //     }
+    //     else if (player.place.items[words[1]].locked == false){
 
-        }
-    }
+    //     }
+    // }
 
-    else if (words[0] == "dig") {
+    // else if (words[0] == "dig") {
         
-    }
+    // }
     
 
-    else if (words[0]=="take"){
-        if (player.place.items.hasOwnProperty(words[1])){  //does this players, place, items object have a 'key' (property) with the name in words[1]
-            player.inventory[words[1]]=player.place.items[words[1]]  //if yes, put the item from the player's place .. into the players inventory
-            delete player.place.items[words[1]] //remove it from the place
-        }
-    }
+    // else if (words[0]=="take"){
+    //     if (player.place.items.hasOwnProperty(words[1])){  //does this players, place, items object have a 'key' (property) with the name in words[1]
+    //         player.inventory[words[1]]=player.place.items[words[1]]  //if yes, put the item from the player's place .. into the players inventory
+    //         delete player.place.items[words[1]] //remove it from the place
+    //     }
+    // }
 
-    else if (words[0]=="drop") {
-        if (player.inventory.hasOwnProperty(words[1])){
-            player.place.items[words[1]]=player.inventory[words[1]]
-            delete player.inventory[words[1]]
-        }
-    }
+    // else if (words[0]=="drop") {
+    //     if (player.inventory.hasOwnProperty(words[1])){
+    //         player.place.items[words[1]]=player.inventory[words[1]]
+    //         delete player.inventory[words[1]]
+    //     }
+    // }
 
-    else if (words[0]=="hint"){
-        let card=document.createElement("div")
-        card.classList.add("card")
-        document.getElementById("main")?.appendChild(card)
+    // else if (words[0]=="hint"){
+    //     let card=document.createElement("div")
+    //     card.classList.add("card")
+    //     document.getElementById("main")?.appendChild(card)
         
-        let para=document.createElement("p")
-        para.classList.add("para")
-        card.appendChild(para)
-        para.innerHTML=player.place.hints
-        let para2=document.createElement("p")
-        para2.classList.add("para")
-        card.appendChild(para2)
-        para2.innerHTML="I don't know how to add multiple lines"
-    }
+    //     let para=document.createElement("p")
+    //     para.classList.add("para")
+    //     card.appendChild(para)
+    //     para.innerHTML=player.place.hints
+    //     let para2=document.createElement("p")
+    //     para2.classList.add("para")
+    //     card.appendChild(para2)
+    //     para2.innerHTML="I don't know how to add multiple lines"
+    // }
     
-    else if (words[0]=="shout"){
+    // else if (words[0]=="shout"){
         
-    }
+    // }
     
-    else if (words[0] == "inventory"){
-        // let inventoryList = (player.inventory).value;
-        // for(let i = 0;i < inventoryList ;i++){
+    // else if (words[0] == "inventory"){
+    //     // let inventoryList = (player.inventory).value;
+    //     // for(let i = 0;i < inventoryList ;i++){
             
-        // }
-    }
+    //     // }
+    // }
     
-    output (player.place.fullDescription())
-}
+//     output (player.place.fullDescription())
+// }
 
 // Reads the values in an object (using the parameter o) and appends them to a string so that it can be output.
 function listProperties(o:object):string{
@@ -282,21 +282,12 @@ let userInput = <HTMLInputElement> document.getElementById("userInput")
 userInput.addEventListener("keypress", keyPressed)
 
 //from here down is the save game function
-function $(id:string):HTMLElement{
-    return document.getElementById(id)!
 
-
-}
-
-function saveGame(){
-game.push ({progress:(<HTMLInputElement>$("userInput")!).value})
-savesaveGame()
-}
-
-let savebutton = document.getElementById("save")
-savebutton!.addEventListener("click", saveGame)
+let save = document.getElementById("save")
+save!.addEventListener("click", savesaveGame)
 
 function savesaveGame(){
     let s = JSON.stringify(player)
     localStorage.setItem("game",s)
 }
+
