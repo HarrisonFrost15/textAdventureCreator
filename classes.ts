@@ -39,11 +39,11 @@ class Item {
     drinkable : boolean = false
     poisonous: boolean = false
     breakable: boolean 
-    throwable: boolean
+    attackable: boolean
     flammable: boolean
 
     // Constructor for new items.
-    constructor(public itemName:string, public weight:number, public place:Place, description:string, examination:string, collectable:boolean, breakable:boolean, throwable:boolean, flammable:boolean) { 
+    constructor(public itemName:string, public weight:number, public place:Place, description:string, examination:string, collectable:boolean, breakable:boolean, attackable:boolean, flammable:boolean) { 
         this.itemName = itemName
         this.weight = weight
         this.place = place
@@ -51,7 +51,7 @@ class Item {
         this.examination = examination
         this.collectable = collectable
         this.breakable = breakable
-        this.throwable = throwable
+        this.attackable = attackable
         this.flammable = flammable
     }
 

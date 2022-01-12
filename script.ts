@@ -47,6 +47,12 @@ function startDefault(){
     let bottomRightCabin = rightSideCabin.addPlace("south", new Place("bottomRightCabin","You find yourself at the back right of the cabin",""), new Exit(true));
 
     let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin","You find yourself at the back of the cabin",""), new Exit(true))
+    
+    let mineEntrance = backOfCabin.addPlace("south", new Place("mineEntrance", "You find yourself in front of an old abandoned coal mine",""), new Exit(true))
+    mineEntrance.addItem("Pickaxe", new Item("Pickaxe", 5, mineEntrance, "It appears to be a steel pickaxe","This pickaxe looks like it could break a rock in two",true,true,true,false))
+
+    let ghostTown = leftSideCabin.addPlace("west", new Place("ghostTown", "You find yourself in the middle of a ghost town",""), new Exit(true))
+    ghostTown.addItem("", new Item("", 3, ghostTown, "", "", true, false, false, false))
 
     player = new Player(cabin,0,true, 20,10)
     player.place.items.door.locked = true
@@ -205,9 +211,14 @@ function execute (command:string){
     }
 
     else if (words[0]=="take"){
-        if (player.place.items.hasOwnProperty(words[1])){  //does this players, place, items object have a 'key' (property) with the name in words[1]
-            player.inventory[words[1]]=player.place.items[words[1]]  //if yes, put the item from the player's place .. into the players inventory
-            delete player.place.items[words[1]] //remove it from the place
+        if (player.carryingWeight < 3) {
+            if (player.place.items.hasOwnProperty(words[1])){  //does this players, place, items object have a 'key' (property) with the name in words[1]
+                player.inventory[words[1]]=player.place.items[words[1]]  //if yes, put the item from the player's place .. into the players inventory
+                delete player.place.items[words[1]] //remove it from the place
+            }
+        }
+        else if (player.carryingWeight > 3) {
+            output ("Sorry, your bag is full, drop an item off first before trying to take something else.")
         }
     }
 
@@ -262,8 +273,8 @@ function execute (command:string){
         }
     }
     
-    else if (words[0] == "throw"){
-        if ((player.place.items[words[1]].throwable == true)){
+    else if (words[0] == "attack"){
+        if ((player.place.items[words[1]].attackable == true)){
             player.place.items[words[3]].broken == true
         }
     }

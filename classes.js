@@ -39,10 +39,10 @@ class Item {
     drinkable = false;
     poisonous = false;
     breakable;
-    throwable;
+    attackable;
     flammable;
     // Constructor for new items.
-    constructor(itemName, weight, place, description, examination, collectable, breakable, throwable, flammable) {
+    constructor(itemName, weight, place, description, examination, collectable, breakable, attackable, flammable) {
         this.itemName = itemName;
         this.weight = weight;
         this.place = place;
@@ -53,7 +53,7 @@ class Item {
         this.examination = examination;
         this.collectable = collectable;
         this.breakable = breakable;
-        this.throwable = throwable;
+        this.attackable = attackable;
         this.flammable = flammable;
     }
 }
