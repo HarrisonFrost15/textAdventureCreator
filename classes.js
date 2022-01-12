@@ -7,6 +7,7 @@ class Player {
     alive = true;
     health = 20;
     stamina = 10;
+    carryingWeight = 0;
     constructor(place, time, alive, health, stamina) {
         this.inventory = {};
         this.place = place;

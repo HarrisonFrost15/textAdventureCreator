@@ -8,6 +8,7 @@ class Player{
     alive: boolean = true
     health: number = 20
     stamina: number = 10
+    carryingWeight = 0
 
     constructor(place:Place, time: number, alive : boolean, health : number, stamina : number){
         this.inventory ={}
