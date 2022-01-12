@@ -22,15 +22,37 @@
             </div>
 
             <div id="initialGeneration">
-                <h4>Please fill in the starting information for your game</h5>
+                <h4>Please fill in the starting information for your game</h4>
+                    <br>
                 <form>
-                    <label for="worldName">What is the name of your game or world: </label><input type="text" name="worldName" id="worldName"><br>
-                    <label for="introText">Write your game's introduction text:</label><br><textarea name="introText" id="introText"></textarea><br>
-                    <label for="playerHealth">What health does the player start on: </label><input type="number" name="playerHealth" id="playerHealth"><br>
-                    <label for="playerStamina">What stamina does the player start on: </label><input type="number" name="playerStamina" id="playerStamina"><br>
-                    <label for="startLocName">Starting location name: </label><input type="text" name="startLocName" id="startLocName"><br>
-                    <label for="startLocDescription">Starting location description: </label><input type="text" name="startLocDescription" id="startLocDescription"><br>
-                    <label for="startHints">Add any hints about this location: </label><input type="text" name="startHints" id="startHints"><br>
+                    <label id="label" for="worldName">What is the name of your game or world: </label>
+                    <br>
+                    <input type="text" name="worldName" id="worldName">
+                    <br>
+                    <label id="label" for="introText">Write your game's introduction text:</label>
+                    <br>
+                    <textarea name="introText" id="introText"></textarea>
+                    <br>
+                    <label id="label" for="playerHealth">What health does the player start on: </label>
+                    <br>
+                    <input type="number" name="playerHealth" id="playerHealth">
+                    <br>
+                    <label id="label" for="playerStamina">What stamina does the player start on: </label>
+                    <br>
+                    <input type="number" name="playerStamina" id="playerStamina">
+                    <br>
+                    <label id="label" for="startLocName">Starting location name: </label>
+                    <br>
+                    <input type="text" name="startLocName" id="startLocName">
+                    <br>
+                    <label id="label" for="startLocDescription">Starting location description: </label>
+                    <br>
+                    <input type="text" name="startLocDescription" id="startLocDescription">
+                    <br>
+                    <label id="label" for="startHints">Add any hints about this location: </label>
+                    <br>
+                    <input type="text" name="startHints" id="startHints">
+                    <br>
                 </form>
                 <button id="submitInitialGeneration">Ok!</button>
             </div>

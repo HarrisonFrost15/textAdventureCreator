@@ -1,15 +1,24 @@
 "use strict"
 
 
-let player:Player
+let gameWorld:World
 
 let s:string=localStorage.getItem("game")!
 if(s!=null){
-    player = ((<any>JSON).retrocycle)((<any>JSON).parse(s));
+    gameWorld = ((<any>JSON).retrocycle)((<any>JSON).parse(s));
 }
+
+
 
 let startButton = <HTMLButtonElement> document.getElementById("play")
 startButton.addEventListener("click", startDefault)
+let loadButton = <HTMLButtonElement> document.getElementById("loadDifferentGame")
+startButton.addEventListener("click", loadDifferentGame)
+
+function loadDifferentGame(){
+    let jsonInput = (<HTMLTextAreaElement>document.getElementById("jsonInput")).value
+    gameWorld = ((<any>JSON).retrocycle)((<any>JSON).parse(jsonInput))
+}
 
 function startDefault(){
 
@@ -274,8 +283,12 @@ function execute (command:string){
     }
     
     else if (words[0] == "attack"){
-        if ((player.place.items[words[1]].attackable == true)){
-            player.place.items[words[3]].broken == true
+        if ((player.place.items[words[1]].attackable == true)) {
+            player.place.items[words[1]].durability -= 1
+            output (`You almost broke ${words[1]}, however it looks like it needs one more hit to break completely`)
+            else if ((player.place.items[words[1]].attackable == false)) {
+                output (`You cannot hit a ${words[1]} come on...`)
+            }
         }
     }
 

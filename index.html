@@ -18,10 +18,15 @@
                 <p>You can play the default text driven adventure or you can create your own.</p>
                 <p>Playing the default game would take you on an adventure with all sort of twists and turn as you explore the wilderness.</p>
                 <p>If you choose to create your own game, you are able to share this with anyone who would like to checkout your game</p>
-                <p>To play the default game click <button id="play">PLAY</button> or to create your own text-driven adventure type <a href="adventureCreator.html"><button id="create">CREATE</button></a></p>
+                <p>To play the default game click play, to load a different game click load or to create your own text-driven adventure click create</p>
                 <br>
-                <p>The full commands list is <a href="">here</a></p>
-                <p>For extra help type 'HINT'</p>           
+                <button id="play">Play</button> <button id="loadDifferentGame">Load game</button> <a href="adventureCreator.html"><button id="create">Create</button></a>
+                <form>
+                    <textarea name="jsonInput" id="jsonInput" cols="30" rows="10"></textarea>
+                </form>
+                <br>
+                <p>The full commands list is <a href="commands.html" target="_blank">here</a></p>
+                <p>For extra help type 'HINT'</p>
             </div>
             <div id="hintbox">
             <div class="card" id="card">

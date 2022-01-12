@@ -1,6 +1,6 @@
 "use strict";
 
-let gameWorld: World
+let newGame: World
 let itemID: number = 1;
 
 (<HTMLButtonElement>document.getElementById("submitInitialGeneration")).addEventListener("click", initialWorldGen);
@@ -21,7 +21,7 @@ function initialWorldGen(){
 
     let startPlace = new Place(startName, startDescription, startHints);
 
-    gameWorld = new World(
+    newGame = new World(
         worldName,
         new Player(
             startPlace,
@@ -31,7 +31,7 @@ function initialWorldGen(){
         introText
     );
 
-    gameWorld.addPlace(startName.toLowerCase(), startPlace);
+    newGame.addPlace(startName.toLowerCase(), startPlace);
 
     let nameList = <HTMLUListElement>document.getElementById("placeList")
     let listItem = document.createElement("li")
@@ -52,7 +52,7 @@ function addNewPlace(){
     let placeDescription = (<HTMLInputElement>document.getElementById("placeDescription")).value
     let placeHints = (<HTMLInputElement>document.getElementById("placeHints")).value
 
-    gameWorld.addPlace(
+    newGame.addPlace(
         placeName.toLowerCase(),
         new Place(
             placeName,
@@ -68,9 +68,9 @@ function addNewPlace(){
             let place = ((<HTMLInputElement>document.getElementById(`${directions[i]}Place`)).value).toLowerCase();
             let locked = (<HTMLInputElement>document.getElementById("locked")).checked;
 
-            gameWorld.places[placeName.toLowerCase()].addNearbyPlace(
+            newGame.places[placeName.toLowerCase()].addNearbyPlace(
                 placeDirection,
-                gameWorld.places[place],
+                newGame.places[place],
                 new Exit(locked));
         }
     }
@@ -110,61 +110,61 @@ function addNewItem(){
     listItem.innerHTML = `${itemName} (${itemID})`
     itemList.appendChild(listItem);
 
-    gameWorld.addItem(itemID, generatedItem)
+    newGame.addItem(itemID, generatedItem)
 
 
     if (parentContainerType == "place"){
-        gameWorld.places[parentContainerName.toLowerCase()].addItem(
+        newGame.places[parentContainerName.toLowerCase()].addItem(
             itemName.toLowerCase(),
             generatedItem
         )
     }
     
     else if (parentContainerType == "item"){
-        gameWorld.items[parseInt(parentContainerName)].addItem(
+        newGame.items[parseInt(parentContainerName)].addItem(
             itemName.toLowerCase(),
             generatedItem
         )
     }
     
     if ((<HTMLInputElement>document.getElementById("collectible")).checked == true){
-        gameWorld.items[itemID].collectable = true
+        newGame.items[itemID].collectable = true
     }
     if ((<HTMLInputElement>document.getElementById("edible")).checked == true){
-        gameWorld.items[itemID].edible = true
+        newGame.items[itemID].edible = true
     }
     if ((<HTMLInputElement>document.getElementById("drinkable")).checked == true){
-        gameWorld.items[itemID].drinkable = true
+        newGame.items[itemID].drinkable = true
     }
     if ((<HTMLInputElement>document.getElementById("poisonous")).checked == true){
-        gameWorld.items[itemID].poisonous = true
+        newGame.items[itemID].poisonous = true
     }
     if ((<HTMLInputElement>document.getElementById("flammable")).checked == true){
-        gameWorld.items[itemID].flammable = true
+        newGame.items[itemID].flammable = true
     }
     if ((<HTMLInputElement>document.getElementById("alight")).checked == true){
-        gameWorld.items[itemID].alight = true
+        newGame.items[itemID].alight = true
     }
     if ((<HTMLInputElement>document.getElementById("locked")).checked == true){
-        gameWorld.items[itemID].locked = true
+        newGame.items[itemID].locked = true
     }
     if ((<HTMLInputElement>document.getElementById("open")).checked == true){
-        gameWorld.items[itemID].open = true
+        newGame.items[itemID].open = true
     }
     if ((<HTMLInputElement>document.getElementById("hidden")).checked == true){
-        gameWorld.items[itemID].hidden = true
+        newGame.items[itemID].hidden = true
     }
     if ((<HTMLInputElement>document.getElementById("pushable")).checked == true){
-        gameWorld.items[itemID].pushable = true
+        newGame.items[itemID].pushable = true
     }
-    if ((<HTMLInputElement>document.getElementById("throwable")).checked == true){
-        gameWorld.items[itemID].throwable = true
-    }
+    // if ((<HTMLInputElement>document.getElementById("throwable")).checked == true){
+    //     newGame.items[itemID].throwable = true
+    // }
     if ((<HTMLInputElement>document.getElementById("breakable")).checked == true){
-        gameWorld.items[itemID].breakable = true
+        newGame.items[itemID].breakable = true
     }
     if ((<HTMLInputElement>document.getElementById("broken")).checked == true){
-        gameWorld.items[itemID].broken = true
+        newGame.items[itemID].broken = true
     }
 
     itemID += 1;
@@ -178,7 +178,7 @@ function addNewItem(){
 
 
 function outputJSON(){
-    let jsonOutput = JSON.stringify((<any>JSON).decycle(gameWorld))
+    let jsonOutput = JSON.stringify((<any>JSON).decycle(newGame))
     let outputArea = <HTMLTextAreaElement>document.getElementById("outputField")
 
     outputArea.innerHTML = jsonOutput

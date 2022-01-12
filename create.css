@@ -20,5 +20,5 @@
 
 #editor {
     display: flex;
-    
+    flex-wrap: wrap;
 }
