@@ -8,6 +8,7 @@ let itemID: number = 1;
 (<HTMLButtonElement>document.getElementById("submitPlace")).addEventListener("click", addNewPlace);
 (<HTMLButtonElement>document.getElementById("newItemButton")).addEventListener("click", newItemForm);
 (<HTMLButtonElement>document.getElementById("submitItem")).addEventListener("click", addNewItem);
+(<HTMLButtonElement>document.getElementById("generateJSONButton")).addEventListener("click", outputJSON);
 
 function initialWorldGen(){
     let worldName = (<HTMLInputElement>document.getElementById("worldName")).value
@@ -126,14 +127,60 @@ function addNewItem(){
         )
     }
     
+    if ((<HTMLInputElement>document.getElementById("collectible")).checked == true){
+        gameWorld.items[itemID].collectable = true
+    }
+    if ((<HTMLInputElement>document.getElementById("edible")).checked == true){
+        gameWorld.items[itemID].edible = true
+    }
+    if ((<HTMLInputElement>document.getElementById("drinkable")).checked == true){
+        gameWorld.items[itemID].drinkable = true
+    }
+    if ((<HTMLInputElement>document.getElementById("poisonous")).checked == true){
+        gameWorld.items[itemID].poisonous = true
+    }
+    if ((<HTMLInputElement>document.getElementById("flammable")).checked == true){
+        gameWorld.items[itemID].flammable = true
+    }
+    if ((<HTMLInputElement>document.getElementById("alight")).checked == true){
+        gameWorld.items[itemID].alight = true
+    }
+    if ((<HTMLInputElement>document.getElementById("locked")).checked == true){
+        gameWorld.items[itemID].locked = true
+    }
+    if ((<HTMLInputElement>document.getElementById("open")).checked == true){
+        gameWorld.items[itemID].open = true
+    }
+    if ((<HTMLInputElement>document.getElementById("hidden")).checked == true){
+        gameWorld.items[itemID].hidden = true
+    }
+    if ((<HTMLInputElement>document.getElementById("pushable")).checked == true){
+        gameWorld.items[itemID].pushable = true
+    }
+    if ((<HTMLInputElement>document.getElementById("throwable")).checked == true){
+        gameWorld.items[itemID].throwable = true
+    }
+    if ((<HTMLInputElement>document.getElementById("breakable")).checked == true){
+        gameWorld.items[itemID].breakable = true
+    }
+    if ((<HTMLInputElement>document.getElementById("broken")).checked == true){
+        gameWorld.items[itemID].broken = true
+    }
+
     itemID += 1;
 
-    // let itemList = <HTMLUListElement>document.getElementById("itemList")
-    // let listItem = document.createElement("li")
-    // listItem.innerHTML = `${itemName} (${itemID})`
-    // itemList.appendChild(listItem);
 
     (<HTMLDivElement> document.getElementById("newItem")).style.display = "none";
     (<HTMLDivElement> document.getElementById("newButtons")).style.display = "inline"
+
+}
+
+
+
+function outputJSON(){
+    let jsonOutput = JSON.stringify((<any>JSON).decycle(gameWorld))
+    let outputArea = <HTMLTextAreaElement>document.getElementById("outputField")
+
+    outputArea.innerHTML = jsonOutput
 
 }
