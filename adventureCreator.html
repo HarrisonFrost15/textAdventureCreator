@@ -15,30 +15,24 @@
     <h3>Welcome to the adventure creator</h3>
     
     <div id="editor">
-        <div id="nameList">
-            <div id="placeList">
-            
-            </div>
-            <div id="itemList">
-
-            </div>
-        </div>
-        
         <div>
-
             <div id="newButtons">
                 <button id="newPlaceButton">New Place</button>
                 <button id="newItemButton">New Item</button>
             </div>
 
-            <div id="startingRoom">
-                <h4>Please create a starting room</h5>
+            <div id="initialGeneration">
+                <h4>Please fill in the starting information for your game</h5>
                 <form>
-                    <label for="startLocName">Place name: </label><input type="text" name="startLocName" id="startLocName"><br>
-                    <label for="startLocDescription">Place description: </label><input type="text" name="startLocDescription" id="startLocDescription"><br>
-                    <label for="startHints">Add any hints about this location </label><input type="text" name="startHints" id="startHints"><br>
+                    <label for="worldName">What is the name of your game or world: </label><input type="text" name="worldName" id="worldName"><br>
+                    <label for="introText">Write your game's introduction text:</label><br><textarea name="introText" id="introText"></textarea><br>
+                    <label for="playerHealth">What health does the player start on: </label><input type="number" name="playerHealth" id="playerHealth"><br>
+                    <label for="playerStamina">What stamina does the player start on: </label><input type="number" name="playerStamina" id="playerStamina"><br>
+                    <label for="startLocName">Starting location name: </label><input type="text" name="startLocName" id="startLocName"><br>
+                    <label for="startLocDescription">Starting location description: </label><input type="text" name="startLocDescription" id="startLocDescription"><br>
+                    <label for="startHints">Add any hints about this location: </label><input type="text" name="startHints" id="startHints"><br>
                 </form>
-                <button id="submitStartingRoom">Ok!</button>
+                <button id="submitInitialGeneration">Ok!</button>
             </div>
 
             <div id="newPlace">
@@ -47,17 +41,31 @@
                     <label for="placeName">What is this place called: </label><input type="text" name="placeName" id="placeName"><br>
                     <label for="placeDescription">Write a description of the place: </label><input type="text" name="placeDescription" id="placeDescription"><br>
                     <label for="placeHints">Add any hints for this location: </label><input type="text" name="placeHints" id="placeHints"><br>
-                    <label for="placeDirection">Which direction is it related to the previous location: </label> 
-                    <select name="placeDirection" id="placeDirection">
-                        <option value="north">North</option>
-                        <option value="east">East</option>
-                        <option value="south">South</option>
-                        <option value="west">West</option>
-                        <option value="up">Up</option>
-                        <option value="down">Down</option>
-                    </select><br>
-                    <label for="previousPlace">What was the previous place</label><input type="text" name="previousPlace" id="previousPlace"><br>
-                    <label for="locked">Is the door between these places locked? (Leave unticked if there is no door) </label><input type="checkbox" name="locked" id="locked" value=true>
+                    Nearby places: <br>
+
+                    <input type="checkbox" name="north" id="north"><label for="north">North | </label>
+                    <label for="northPlace">Location name: </label><input type="text" name="northPlace" id="northPlace">
+                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
+
+                    <input type="checkbox" name="east" id="east"><label for="east">East | </label>                    
+                    <label for="eastPlace">Location name: </label><input type="text" name="eastPlace" id="eastPlace">
+                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
+
+                    <input type="checkbox" name="south" id="south"><label for="south">South | </label>                    
+                    <label for="southPlace">Location name: </label><input type="text" name="southPlace" id="southPlace">
+                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
+
+                    <input type="checkbox" name="west" id="west"><label for="west">West | </label>                    
+                    <label for="westPlace">Location name: </label><input type="text" name="westPlace" id="westPlace">
+                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
+
+                    <input type="checkbox" name="up" id="up"><label for="up">Up | </label>                    
+                    <label for="upPlace">Location name: </label><input type="text" name="upPlace" id="upPlace">
+                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
+
+                    <input type="checkbox" name="down" id="down"><label for="down">Down | </label>                    
+                    <label for="downPlace">Location name: </label><input type="text" name="downPlace" id="downPlace">
+                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
 
                 </form>
                 <button id="submitPlace">Ok!</button>
@@ -68,17 +76,52 @@
                 <form>
                     <label for="itemName">What is the item's name: </label><input type="text" name="itemName" id="itemName"><br>
                     <label for="itemDescription">Give some information about the item: </label><input type="text" name="itemDescription" id="itemDescription"><br>
+                    <label for="itemWeight">How much does it weigh: </label><input type="number" name="itemWeight" id="itemWeight"><br>
+                    <label for="parentContainerType">Is this item in a place or inside another item: </label>
+                    <select name="parentContainerType" id="parentContainerType">
+                        <option value="place">Place</option>
+                        <option value="item">Item</option>
+                    </select><br>
+                    <label for="parentContainerName">Parent container name if place, ID if item: </label><input type="text" name="parentContainerName" id="parentContainerName">
+                    <br><br>
                     Properties <br>
-                    <label for="edible">Edible: </label><input type="checkbox" name="" id="">
+                    <label for="collectible">Collectible: </label><input type="checkbox" name="collectible" id="collectible"><br>
+                    <label for="edible">Edible: </label><input type="checkbox" name="edible" id="edible"><br>
+                    <label for="drinkable">Drinkable: </label><input type="checkbox" name="drinkable" id="drinkable"><br>
+                    <label for="poisonous">Poisonous: </label><input type="checkbox" name="poisonous" id="poisonous"><br>
+                    <label for="flammable">Flammable: </label><input type="checkbox" name="flammable" id="flammable"><br>
+                    <label for="alight">Alight: </label><input type="checkbox" name="alight" id="alight"><br>
+                    <label for="locked">Locked: </label><input type="checkbox" name="locked" id="locked"><br>
+                    <label for="open">Open: </label><input type="checkbox" name="open" id="open"><br>
+                    <label for="hidden">Hidden: </label><input type="checkbox" name="hidden" id="hidden"><br>
+                    <label for="pushable">Pushable: </label><input type="checkbox" name="pushable" id="pushable"><br>
+                    <label for="throwable">Throwable: </label><input type="checkbox" name="throwable" id="throwable"><br>
+                    <label for="breakable">Breakable: </label><input type="checkbox" name="breakable" id="breakable"><br>
+                    <label for="broken">Broken: </label><input type="checkbox" name="broken" id="broken"><br>
+
                 </form>
                 
 
                 <button id="submitItem">Ok!</button>
             </div>
         </div>
+
+        <div id="nameList">
+            <h3>Places created</h3>
+            <ul id="placeList">
+            
+            </ul>
+            <h3>Items created</h3>
+            <ul id="itemList">
+
+            </ul>
+        </div>
     </div>
 
-    <div id="createdAdventure">
+    <div id="output">
+        To play the game please click Generate JSON, then copy and paste the output into the game load area of the text adventure
+        <button id="generateJSONButton">Generate JSON</button><br>
+        <textarea id="outputField"></textarea>
 
     </div>
 </body>
