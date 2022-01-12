@@ -22,7 +22,7 @@
             </div>
 
             <div id="initialGeneration">
-                <h4>Please fill in the starting information for your game</h4>
+                <h4>Please fill la the starting information for your game</h4>
                     <br>
                 <form>
                     <label id="label" for="worldName">What is the name of your game or world: </label>
@@ -59,68 +59,293 @@
 
             <div id="newPlace">
                 Enter the details for the new place<br><br>
-                <form >
-                    <label for="placeName">What is this place called: </label><input type="text" name="placeName" id="placeName"><br>
-                    <label for="placeDescription">Write a description of the place: </label><input type="text" name="placeDescription" id="placeDescription"><br>
-                    <label for="placeHints">Add any hints for this location: </label><input type="text" name="placeHints" id="placeHints"><br>
-                    Nearby places: <br>
-
-                    <input type="checkbox" name="north" id="north"><label for="north">North | </label>
-                    <label for="northPlace">Location name: </label><input type="text" name="northPlace" id="northPlace">
-                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
-
-                    <input type="checkbox" name="east" id="east"><label for="east">East | </label>                    
-                    <label for="eastPlace">Location name: </label><input type="text" name="eastPlace" id="eastPlace">
-                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
-
-                    <input type="checkbox" name="south" id="south"><label for="south">South | </label>                    
-                    <label for="southPlace">Location name: </label><input type="text" name="southPlace" id="southPlace">
-                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
-
-                    <input type="checkbox" name="west" id="west"><label for="west">West | </label>                    
-                    <label for="westPlace">Location name: </label><input type="text" name="westPlace" id="westPlace">
-                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
-
-                    <input type="checkbox" name="up" id="up"><label for="up">Up | </label>                    
-                    <label for="upPlace">Location name: </label><input type="text" name="upPlace" id="upPlace">
-                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
-
-                    <input type="checkbox" name="down" id="down"><label for="down">Down | </label>                    
-                    <label for="downPlace">Location name: </label><input type="text" name="downPlace" id="downPlace">
-                    <label for="locked">Locked </label><input type="checkbox" name="locked" id="locked" value=true><br>
-
+                <form id="fo">
+                    <p class="para">
+                    <label class="la" for="placeName">What is this place called: </label>
+                    <br>
+                    <input class="la" type="text" name="placeName" id="placeName">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="placeDescription">Write a description of the place: </label>
+                    <br>
+                    <input class="la" type="text" name="placeDescription" id="placeDescription">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="placeHints">Add any hints for this location: </label>
+                    <br>
+                    <input class="la" type="text" name="placeHints" id="placeHints">
+                    </p>
+                    <br>
+                    <br>
+                    <u>Nearby places:</u> 
+                    <br>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="north">North | </label>
+                    <br>
+                    <input class="la" type="checkbox" name="north" id="north">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="northPlace">Location name: </label>
+                    <br>
+                    <input class="la" type="text" name="northPlace" id="northPlace">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="locked">Locked </label>
+                    <br>
+                    <input class="la" type="checkbox" name="locked" id="locked" value=true>
+                    <hr>
+                    </p>
+                    <br>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="east">East | </label>
+                    <br>
+                    <input class="la" type="checkbox" name="east" id="east">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="eastPlace">Location name: </label>
+                    <br>
+                    <input class="la" type="text" name="eastPlace" id="eastPlace">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="locked">Locked </label>
+                    <br>
+                    <input class="la" type="checkbox" name="locked" id="locked" value=true><br>
+                    <hr>
+                    </p>
+                    <br>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="south">South | </label>
+                    <br>
+                    <input class="la" type="checkbox" name="south" id="south">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="southPlace">Location name: </label>
+                    <br>
+                    <input class="la" type="text" name="southPlace" id="southPlace">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="locked">Locked </label>
+                    <br>
+                    <input class="la" type="checkbox" name="locked" id="locked" value=true><br>
+                    <hr>
+                    </p>
+                    <br>
+                    <br>
+                    <p class="para">
+                    <labe class="la" for="west">West | </label>
+                    <br>
+                    <input class="la" type="checkbox" name="west" id="west">
+                    </p>
+                    <br>
+                    <p class="para"> 
+                    <label class="la" for="westPlace">Location name: </label>
+                    <br>
+                    <input class="la" type="text" name="westPlace" id="westPlace"> 
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="locked">Locked </label>
+                    <br>
+                    <input class="la" type="checkbox" name="locked" id="locked" value=true>
+                    <hr>
+                    </p>
+                    <br> 
+                    <br>     
+                    <p class="para"> 
+                    <label class="la" for="up">Up | </label>      
+                    <br>
+                    <input class="la" type="checkbox" name="up" id="up">
+                    </p>
+                    <br>
+                    <p class="para"> 
+                    <label class="la" for="upPlace">Location name: </label>
+                    <br>
+                    <input class="la" type="text" name="upPlace" id="upPlace">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="locked">Locked </label>
+                    <br>
+                    <input class="la" type="checkbox" name="locked" id="locked" value=true>
+                    <hr>
+                    </p>     
+                    <br>   
+                    <br>
+                    <p class="para">
+                    <label class="la" for="down">Down | </label>
+                    <br>
+                    <input class="la" type="checkbox" name="down" id="down">
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="downPlace">Location name: </label>
+                    <br>
+                    <input class="la" type="text" name="downPlace" id="downPlace"> 
+                    </p>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="locked">Locked </label>
+                    <br>
+                    <input class="la" type="checkbox" name="locked" id="locked" value=true>
+                    <hr>
+                    </p> 
+                    <br>
+                    <br>                 
                 </form>
+                <br>
+                <br>
                 <button id="submitPlace">Ok!</button>
             </div>
 
             <div id="newItem">
-                Fill in the details for the item<br><br>
-                <form>
-                    <label for="itemName">What is the item's name: </label><input type="text" name="itemName" id="itemName"><br>
-                    <label for="itemDescription">Give some information about the item: </label><input type="text" name="itemDescription" id="itemDescription"><br>
-                    <label for="itemWeight">How much does it weigh: </label><input type="number" name="itemWeight" id="itemWeight"><br>
-                    <label for="parentContainerType">Is this item in a place or inside another item: </label>
+                <u>Fill la the details for the item: </u>
+                <br>
+                <br>
+                <form id="fo">
+                    <p class="para">
+                    <label class="la" for="itemName">What is the item's name: </label>
+                    <br>
+                    <input class="la" type="text" name="itemName" id="itemName">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="itemDescription">Give some information about the item: </label>
+                    <br>
+                    <input class="la" type="text" name="itemDescription" id="itemDescription">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="itemWeight">How much does it weigh: </label>
+                    <br>
+                    <input class="la" type="number" name="itemWeight" id="itemWeight">
+                    </p>
+                    <hr>
+                    <br>
+                    <br>
+                    <label for="parentContainerType">Is this item la a place or inside another item: </label>
                     <select name="parentContainerType" id="parentContainerType">
                         <option value="place">Place</option>
                         <option value="item">Item</option>
-                    </select><br>
-                    <label for="parentContainerName">Parent container name if place, ID if item: </label><input type="text" name="parentContainerName" id="parentContainerName">
-                    <br><br>
-                    Properties <br>
-                    <label for="collectible">Collectible: </label><input type="checkbox" name="collectible" id="collectible"><br>
-                    <label for="edible">Edible: </label><input type="checkbox" name="edible" id="edible"><br>
-                    <label for="drinkable">Drinkable: </label><input type="checkbox" name="drinkable" id="drinkable"><br>
-                    <label for="poisonous">Poisonous: </label><input type="checkbox" name="poisonous" id="poisonous"><br>
-                    <label for="flammable">Flammable: </label><input type="checkbox" name="flammable" id="flammable"><br>
-                    <label for="alight">Alight: </label><input type="checkbox" name="alight" id="alight"><br>
-                    <label for="locked">Locked: </label><input type="checkbox" name="locked" id="locked"><br>
-                    <label for="open">Open: </label><input type="checkbox" name="open" id="open"><br>
-                    <label for="hidden">Hidden: </label><input type="checkbox" name="hidden" id="hidden"><br>
-                    <label for="pushable">Pushable: </label><input type="checkbox" name="pushable" id="pushable"><br>
-                    <label for="throwable">Throwable: </label><input type="checkbox" name="throwable" id="throwable"><br>
-                    <label for="breakable">Breakable: </label><input type="checkbox" name="breakable" id="breakable"><br>
-                    <label for="broken">Broken: </label><input type="checkbox" name="broken" id="broken"><br>
-
+                    </select>
+                    <hr>
+                    <br>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="parentContainerName">Parent container name if place, ID if item: </label>
+                    <br>
+                    <input class="la" type="text" name="parentContainerName" id="parentContainerName">
+                    </p>
+                    <hr>
+                    <br>
+                    <br>
+                    <u>Properties: </u>
+                    <br>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="collectible">Collectible: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="collectible" id="collectible">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="edible">Edible: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="edible" id="edible">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="drinkable">Drinkable: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="drinkable" id="drinkable">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="poisonous">Poisonous: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="poisonous" id="poisonous">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="flammable">Flammable: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="flammable" id="flammable">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="alight">Alight: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="alight" id="alight">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="locked">Locked: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="locked" id="locked">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="open">Open: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="open" id="open">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="hidden">Hidden: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="hidden" id="hidden">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="pushable">Pushable: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="pushable" id="pushable">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="throwable">Throwable: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="throwable" id="throwable">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="breakable">Breakable: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="breakable" id="breakable">
+                    </p>
+                    <hr>
+                    <br>
+                    <p class="para">
+                    <label class="la" for="broken">Broken: </label>
+                    <br>
+                    <input class="la" type="checkbox" name="broken" id="broken">
+                    </p>
+                    <hr>
+                    <br>
+                    <br>
                 </form>
                 
 
@@ -141,6 +366,9 @@
     </div>
 
     <div id="output">
+        Do not do this until your game is fully created.
+        <br>
+        <br>
         To play the game please click Generate JSON, then copy and paste the output into the game load area of the text adventure
         <button id="generateJSONButton">Generate JSON</button><br>
         <textarea id="outputField"></textarea>

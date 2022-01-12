@@ -1,11 +1,17 @@
 "use strict";
-let player;
+let gameWorld;
 let s = localStorage.getItem("game");
 if (s != null) {
-    player = (JSON.retrocycle)(JSON.parse(s));
+    gameWorld = (JSON.retrocycle)(JSON.parse(s));
 }
 let startButton = document.getElementById("play");
 startButton.addEventListener("click", startDefault);
+let loadButton = document.getElementById("loadDifferentGame");
+startButton.addEventListener("click", loadDifferentGame);
+function loadDifferentGame() {
+    let jsonInput = document.getElementById("jsonInput").value;
+    gameWorld = (JSON.retrocycle)(JSON.parse(jsonInput));
+}
 function startDefault() {
     let cabin = new Place("Cabin", "You find yourself awake in a cabin alone with no memory of how you got there.", "Reach outside.");
     cabin.addItem("key", new Item("key", 1, cabin, "It appears to be an antique brass key", "This key looks like it would a door", true, true, true, false, false));
@@ -224,7 +230,11 @@ function execute(command) {
     }
     else if (words[0] == "attack") {
         if ((player.place.items[words[1]].attackable == true)) {
-            player.place.items[words[3]].broken == true;
+            player.place.items[words[1]].durability -= 1;
+            output(`You almost broke ${words[1]}, however it looks like it needs one more hit to break completely`);
+            if ((player.place.items[words[1]].attackable == false)) {
+                output(`You cannot hit a ${words[1]} come on...`);
+            }
         }
     }
     else if (words[0] == "burn") {

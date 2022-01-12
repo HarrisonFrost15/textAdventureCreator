@@ -21,4 +21,23 @@
 #editor {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+#nameList{
+    position: absolute;
+    margin-left: 60em;
+}
+#output{
+    margin-top: 6em;
+    bottom: 0;
+}
+#fo{
+    display: table;
+}
+.para{
+    display: table-row;
+}
+.la{
+    display: table-cell;
 }
