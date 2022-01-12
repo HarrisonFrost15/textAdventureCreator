@@ -1,11 +1,18 @@
 "use strict";
-let player;
+let gameWorld;
 let s = localStorage.getItem("game");
 if (s != null) {
-    player = (JSON.retrocycle)(JSON.parse(s));
+    gameWorld = (JSON.retrocycle)(JSON.parse(s));
 }
 let startButton = document.getElementById("play");
 startButton.addEventListener("click", startDefault);
+let loadButton = document.getElementById("loadDifferentGame");
+loadButton.addEventListener("click", loadDifferentGame);
+function loadDifferentGame() {
+    let jsonInput = document.getElementById("jsonInput").value;
+    gameWorld = (JSON.retrocycle)(JSON.parse(jsonInput));
+    output(gameWorld.player.place.fullDescription());
+}
 function startDefault() {
     let cabin = new Place("Cabin", "You find yourself awake in a cabin alone with no memory of how you got there.", "Reach outside.");
     cabin.addItem("key", new Item("key", 1, cabin, "It appears to be an antique brass key", "This key looks like it would a door", true, true, true, false, false));
@@ -39,7 +46,7 @@ function startDefault() {
     let mineEntrance = backOfCabin.addPlace("south", new Place("mineEntrance", "You find yourself in front of an old abandoned coal mine", ""), new Exit(true));
     mineEntrance.addItem("Pickaxe", new Item("Pickaxe", 5, mineEntrance, "It appears to be a steel pickaxe", "This pickaxe looks like it could break a rock in two", true, true, true, false));
     let ghostTown = leftSideCabin.addPlace("west", new Place("ghostTown", "You find yourself in the middle of a ghost town", ""), new Exit(true));
-    ghostTown.addItem("", new Item("", 3, ghostTown, "", "", true, false, false, false));
+    ghostTown.addItem("Old Newspaper", new Item(1, "Old Newspaper", 3, "It appears to be an old newspaper with a baffling headline"));
     player = new Player(cabin, 0, true, 20, 10);
     player.place.items.door.locked = true;
     output(player.place.fullDescription());
@@ -79,34 +86,34 @@ function execute(command) {
     card.style.display = "none";
     let words = command.toLowerCase().split(" ");
     if ("north,east,south,west,up,down".includes(words[0])) {
-        if (player.place.exits[words[0]].locked == false) {
-            player.place = player.place.nearby[words[0]];
+        if (gameWorld.player.place.exits[words[0]].locked == false) {
+            gameWorld.player.place = gameWorld.player.place.nearby[words[0]];
         }
-        else if (player.place.exits[words[0]].locked == true) {
+        else if (gameWorld.player.place.exits[words[0]].locked == true) {
             output("The way is shut <br>");
         }
     }
     else if (words[0] == "jump") {
         if ("north,east,south,west".includes(words[1])) {
-            player.place = player.place.nearby[words[1]];
+            gameWorld.player.place = gameWorld.player.place.nearby[words[1]];
         }
     }
     else if (words[0] == "open") {
-        let container = player.place.items[words[1]];
+        let container = gameWorld.player.place.items[words[1]];
         if (container.open) {
             output("It's already opened");
         }
         else {
             container.open = true;
             for (let k in container.contents) {
-                player.place.items[k] = container.contents[k];
+                gameWorld.player.place.items[k] = container.contents[k];
             }
             output("It is now open");
         }
     }
     else if (words[0] == "close") {
-        if (player.place.items[words[1]].open) {
-            player.place.items[words[1]].open = false;
+        if (gameWorld.player.place.items[words[1]].open) {
+            gameWorld.player.place.items[words[1]].open = false;
         }
         else {
             output("It is already closed");
@@ -114,75 +121,82 @@ function execute(command) {
     }
     else if (words[0] == "unlock") {
         if (words[1] == "door") {
-            if (player.place.exits[words[2]].locked == true && player.inventory.hasOwnProperty("key")) {
-                player.place.exits[words[2]].locked = false;
+            if (gameWorld.player.place.exits[words[2]].locked == true && gameWorld.player.inventory.hasOwnProperty("key")) {
+                gameWorld.player.place.exits[words[2]].locked = false;
                 output(`You unlock the ${words[2]} door`);
             }
-            else if (player.place.exits[words[2]].locked == true && !player.inventory.hasOwnProperty("key")) {
+            else if (gameWorld.player.place.exits[words[2]].locked == true && !gameWorld.player.inventory.hasOwnProperty("key")) {
                 output("You need a key");
             }
-            else if (player.place.exits[words[2]].locked == false) {
+            else if (gameWorld.player.place.exits[words[2]].locked == false) {
                 output("This door is already unlocked");
             }
         }
         else {
-            if (player.place.items[words[1]].locked && player.inventory.hasOwnProperty("key")) {
-                player.place.items.obstacle.locked = false;
+            if (gameWorld.player.place.items[words[1]].locked && gameWorld.player.inventory.hasOwnProperty("key")) {
+                gameWorld.player.place.items.obstacle.locked = false;
             }
-            else if (player.place.items[words[1]].locked && !player.inventory.hasOwnProperty("key")) {
+            else if (gameWorld.player.place.items[words[1]].locked && !gameWorld.player.inventory.hasOwnProperty("key")) {
                 output("You need a key");
             }
-            else if (player.place.items[words[1]].locked == false) {
+            else if (gameWorld.player.place.items[words[1]].locked == false) {
                 output("It's already unlocked");
             }
         }
     }
     else if (words[0] == "lock") {
-        if (player.place.items[words[1]].locked) {
+        if (gameWorld.player.place.items[words[1]].locked) {
             output("This is already locked");
         }
-        else if (player.place.items[words[1]].locked == false) {
-            player.place.items[words[1]].locked = true;
+        else if (gameWorld.player.place.items[words[1]].locked == false) {
+            gameWorld.player.place.items[words[1]].locked = true;
             output("You have locked this");
         }
     }
     else if (words[0] == "dig") {
-        if (player.inventory.hasOwnProperty("shovel")) {
+        if (gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.place.items[words[1]].broken == false) {
             // Object.values(player.place.items).forEach(i =>{ 
             //     if (i.hidden) {
             //         i.hidden = false
             //         output(`You have dug an ${i.itemName} out!`)
             //     }
             // })
-            for (let i in player.place.items) {
-                let item = player.place.items[i];
+            for (let i in gameWorld.player.place.items) {
+                let item = gameWorld.player.place.items[i];
                 if (item.hidden) {
                     item.hidden = false;
                     output(`You have dug a ${item.itemName} out!`);
                 }
             }
         }
+        else if (gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.place.items[words[1]].broken == true) {
+            output(`${words[1]} is broken, you cannot dig.`);
+        }
     }
     else if (words[0] == "climb") {
         if ("north,east,south,west,up,down".includes(words[1])) {
-            player.place = player.place.nearby[words[1]];
+            gameWorld.player.place = gameWorld.player.place.nearby[words[1]];
         }
     }
     else if (words[0] == "take") {
-        if (player.carryingWeight < 3) {
-            if (player.place.items.hasOwnProperty(words[1])) { //does this players, place, items object have a 'key' (property) with the name in words[1]
-                player.inventory[words[1]] = player.place.items[words[1]]; //if yes, put the item from the player's place .. into the players inventory
-                delete player.place.items[words[1]]; //remove it from the place
-            }
+        if ((gameWorld.player.place.items.hasOwnProperty(words[1])) && (gameWorld.player.place.items[words[1]].collectable == true) && (gameWorld.player.carryingWeight < 3)) {
+            gameWorld.player.inventory[words[1]] = gameWorld.player.place.items[words[1]];
+            delete gameWorld.player.place.items[words[1]];
         }
-        else if (player.carryingWeight > 3) {
+        else if (gameWorld.player.place.items.hasOwnProperty(words[1]) == false) {
+            output("That item doesn't exist");
+        }
+        else if (gameWorld.player.carryingWeight > 3) {
             output("Sorry, your bag is full, drop an item off first before trying to take something else.");
+        }
+        else if (gameWorld.player.place.items[words[1]].collectable == false) {
+            output("You can't pick this up come on...");
         }
     }
     else if (words[0] == "drop") {
-        if (player.inventory.hasOwnProperty(words[1])) {
-            player.place.items[words[1]] = player.inventory[words[1]];
-            delete player.inventory[words[1]];
+        if (gameWorld.player.inventory.hasOwnProperty(words[1])) {
+            gameWorld.player.place.items[words[1]] = gameWorld.player.inventory[words[1]];
+            delete gameWorld.player.inventory[words[1]];
         }
     }
     // else if (words[0]=="push"){
@@ -197,74 +211,86 @@ function execute(command) {
     else if (words[0] == "hint") {
         let para = document.getElementById("para");
         para.innerHTML = "";
-        para.innerHTML = player.place.hints;
+        para.innerHTML = gameWorld.player.place.hints;
         card.style.display = "block";
     }
     else if (words[0] == "eat") {
-        if ((player.place.items[words[1]].edible == true) && (player.place.items[words[1]].poisonous == false)) {
-            player.health += 5;
+        if ((gameWorld.player.place.items[words[1]].edible == true) && (gameWorld.player.place.items[words[1]].poisonous == false)) {
+            gameWorld.player.health += 5;
         }
-        else if ((player.place.items[words[1]].edible == true) && (player.place.items[words[1]].poisonous == true)) {
-            player.health -= 5;
+        else if ((gameWorld.player.place.items[words[1]].edible == true) && (gameWorld.player.place.items[words[1]].poisonous == true)) {
+            gameWorld.player.health -= 5;
         }
-        else if ((player.place.items[words[1]].edible == false)) {
+        else if ((gameWorld.player.place.items[words[1]].edible == false)) {
             output("I don't think you want to eat this");
         }
     }
     else if (words[0] == "drink") {
-        if ((player.place.items[words[1]].drinkable == true) && (player.place.items[words[1]].poisonous == false)) {
-            player.stamina += 5;
+        if ((gameWorld.player.place.items[words[1]].drinkable == true) && (gameWorld.player.place.items[words[1]].poisonous == false)) {
+            gameWorld.player.stamina += 5;
         }
-        else if ((player.place.items[words[1]].drinkable == true) && (player.place.items[words[1]].poisonous == true)) {
-            player.stamina -= 5;
+        else if ((gameWorld.player.place.items[words[1]].drinkable == true) && (gameWorld.player.place.items[words[1]].poisonous == true)) {
+            gameWorld.player.stamina -= 5;
         }
-        else if ((player.place.items[words[1]].drinkable == false)) {
+        else if ((gameWorld.player.place.items[words[1]].drinkable == false)) {
             output("I don't think you can drink this");
         }
     }
     else if (words[0] == "attack") {
-        if ((player.place.items[words[1]].attackable == true)) {
-            player.place.items[words[3]].broken == true;
+        if ((gameWorld.player.place.items[words[1]].attackable == true)) {
+            gameWorld.player.place.items[words[1]].durability -= 1;
+            output(`You almost broke ${words[1]}, however it looks like it needs one more hit to break completely`);
+        }
+        else if ((gameWorld.player.place.items[words[1]].attackable == false)) {
+            output(`You cannot hit a ${words[1]} come on...`);
         }
     }
     else if (words[0] == "burn") {
-        if ((player.place.items[words[1]].flammable == true)) {
-            player.place.items[words[1]].alight == true;
+        if (gameWorld.player.place.items[words[1]].flammable == true) {
+            gameWorld.player.place.items[words[1]].alight == true;
         }
     }
     else if (words[0] == "examine") {
-        if (player.place.items.hasOwnProperty(words[1])) {
-            output(`${player.place.items[words[1]].description}<br>`);
+        if (gameWorld.player.place.items.hasOwnProperty(words[1])) {
+            output(`${gameWorld.player.place.items[words[1]].description}<br>`);
         }
-        else if (player.inventory.hasOwnProperty(words[1])) {
-            output(`${player.inventory[words[1]].description}<br>`);
+        else if (gameWorld.player.inventory.hasOwnProperty(words[1])) {
+            output(`${gameWorld.player.inventory[words[1]].description}<br>`);
         }
         else {
             output("Sadly, you cannot examine this");
         }
     }
     else if (words[0] == "break") {
-        if (player.place.items[words[1]].breakable == true && player.place.items[words[1]].broken == false) {
-            player.place.items[words[1]].broken = true;
+        if (gameWorld.player.place.items[words[1]].breakable == true && gameWorld.player.place.items[words[1]].broken == false) {
+            gameWorld.player.place.items[words[1]].broken = true;
             output(`You have broken the ${words[1]}`);
         }
-        else if (player.place.items[words[1]].breakable == false) {
+        else if (gameWorld.player.place.items[words[1]].breakable == false) {
             output("You have overestimated your powers. This cannot be broken.");
         }
-        else if (player.place.items[words[1]].broken == true) {
+        else if (gameWorld.player.place.items[words[1]].broken == true) {
             output("It's already broken");
         }
     }
-    output(player.place.fullDescription());
-    if (player.health == 0) {
-        player.alive == false;
+    output(gameWorld.player.place.fullDescription());
+    if (gameWorld.items.alight == true) {
+        gameWorld.items.durability -= 1;
+    }
+    if (gameWorld.items.durability == 0) {
+        gameWorld.items.broken = true;
+        output("This item is damaged");
+    }
+    if (gameWorld.player.health == 0) {
+        gameWorld.player.alive == false;
         output("Oh no, you are dead!");
+        startDefault();
     }
 }
 let save = document.getElementById("save");
 save.addEventListener("click", savesaveGame);
 function savesaveGame() {
-    let s = JSON.stringify(JSON.decycle(player));
+    let s = JSON.stringify(JSON.decycle(gameWorld));
     localStorage.setItem("game", s);
 }
 //# sourceMappingURL=script.js.map
