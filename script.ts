@@ -6,6 +6,7 @@ let player:Player
 let s:string=localStorage.getItem("game")!
 if(s!=null){
     player = ((<any>JSON).retrocycle)((<any>JSON).parse(s));
+    console.log(player)
 }
 
 let startButton = <HTMLButtonElement> document.getElementById("play")
@@ -51,7 +52,9 @@ function startDefault(){
     player = new Player(cabin,0,true, 20,10)
     player.place.items.door.locked = true
 
-    output (player.place.fullDescription())
+
+
+    output (fullDescription(player.place))
 }
 
 let ob= <HTMLElement> document.getElementById("outputBox")
@@ -79,6 +82,16 @@ function keyPressed (e:KeyboardEvent){
 // Adds the output text to the end of the game text
 function output (input:string){
     document.getElementById("outputBox")!.innerHTML += input + "<br>"
+
+}
+
+function fullDescription(place:Place):string{
+    return `
+    ${place.description}<br>
+    You see: ${listProperties(place.items)}<br>
+    You can go: ${listProperties(place.nearby)}<br>`
+    // Inventory: ${listProperties(inventory)}<br>
+    
 }
 
 // Reads the values in an object (using the parameter o) and appends them to a string so that it can be output.
@@ -294,11 +307,13 @@ function execute (command:string){
         else {
             output ("You overestimated your powers. This cannot be broken.")
         }
-    
+    }
+    else { 
+         output ("I don't understand.")
     }
     
 
-    output (player.place.fullDescription())
+    output (fullDescription(player.place))
     
     
     if (player.health == 0) {
@@ -308,9 +323,9 @@ function execute (command:string){
 }
 
 let save = document.getElementById("save")
-save!.addEventListener("click", savesaveGame)
+save!.addEventListener("click", saveGame)
 
-function savesaveGame(){
+function saveGame(){
     let s = JSON.stringify((<any>JSON).decycle(player))
     localStorage.setItem("game",s)
 }

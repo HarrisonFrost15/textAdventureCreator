@@ -3,6 +3,7 @@ let player;
 let s = localStorage.getItem("game");
 if (s != null) {
     player = (JSON.retrocycle)(JSON.parse(s));
+    console.log(player);
 }
 let startButton = document.getElementById("play");
 startButton.addEventListener("click", startDefault);
@@ -38,7 +39,7 @@ function startDefault() {
     let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin", "You find yourself at the back of the cabin", ""), new Exit(true));
     player = new Player(cabin, 0, true, 20, 10);
     player.place.items.door.locked = true;
-    output(player.place.fullDescription());
+    output(fullDescription(player.place));
 }
 let ob = document.getElementById("outputBox");
 function scrollToBottom() {
@@ -60,6 +61,13 @@ function keyPressed(e) {
 // Adds the output text to the end of the game text
 function output(input) {
     document.getElementById("outputBox").innerHTML += input + "<br>";
+}
+function fullDescription(place) {
+    return `
+    ${place.description}<br>
+    You see: ${listProperties(place.items)}<br>
+    You can go: ${listProperties(place.nearby)}<br>`;
+    // Inventory: ${listProperties(inventory)}<br>
 }
 // Reads the values in an object (using the parameter o) and appends them to a string so that it can be output.
 function listProperties(o) {
@@ -243,15 +251,18 @@ function execute(command) {
             output("You overestimated your powers. This cannot be broken.");
         }
     }
-    output(player.place.fullDescription());
+    else {
+        output("I don't understand.");
+    }
+    output(fullDescription(player.place));
     if (player.health == 0) {
         player.alive == false;
         output("Oh no, you are dead!");
     }
 }
 let save = document.getElementById("save");
-save.addEventListener("click", savesaveGame);
-function savesaveGame() {
+save.addEventListener("click", saveGame);
+function saveGame() {
     let s = JSON.stringify(JSON.decycle(player));
     localStorage.setItem("game", s);
 }

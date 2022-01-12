@@ -71,14 +71,6 @@ class Place {
         this.hints = hints;
     }
     // When called, returns the description, nearby items and nearby places to be shown on screen
-    fullDescription() {
-        return `
-        ${player.place.description}<br>
-        You see: ${listProperties(player.place.items)}<br>
-        You can go: ${listProperties(player.place.nearby)}<br>
-        Inventory: ${listProperties(player.inventory)}<br>
-        `;
-    }
     //     // Links a new place to the current one and also creates a reverse link so you can go back to the previous place
     addPlace(direction, place, exit) {
         this.nearby[direction] = place;
