@@ -8,19 +8,6 @@ if(s!=null){
     player = ((<any>JSON).retrocycle)((<any>JSON).parse(s));
 }
 
-//Starts default game
-
-// let ob= document.getElementById("outputBox")
-
-
-// function scrollToBottom(){
-//     ob!.scrollTop=ob!.scrollHeight
-// }
-
-// ob!.addEventListener("mouseover", function (){
-//     clearInterval()
-// })
-
 let startButton = <HTMLButtonElement> document.getElementById("play")
 startButton.addEventListener("click", startDefault)
 

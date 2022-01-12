@@ -4,14 +4,6 @@ let s = localStorage.getItem("game");
 if (s != null) {
     player = (JSON.retrocycle)(JSON.parse(s));
 }
-//Starts default game
-// let ob= document.getElementById("outputBox")
-// function scrollToBottom(){
-//     ob!.scrollTop=ob!.scrollHeight
-// }
-// ob!.addEventListener("mouseover", function (){
-//     clearInterval()
-// })
 let startButton = document.getElementById("play");
 startButton.addEventListener("click", startDefault);
 function startDefault() {
