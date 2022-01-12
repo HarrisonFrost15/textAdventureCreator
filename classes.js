@@ -38,11 +38,11 @@ class Item {
     edible = false;
     drinkable = false;
     poisonous = false;
-    breakable;
+    breakable = false;
     throwable;
     flammable;
     // Constructor for new items.
-    constructor(itemName, weight, place, description, examination, collectable, breakable, throwable, flammable) {
+    constructor(itemName, weight, place, description, examination, collectable, breakable, throwable, flammable, broken) {
         this.itemName = itemName;
         this.weight = weight;
         this.place = place;
@@ -55,6 +55,7 @@ class Item {
         this.breakable = breakable;
         this.throwable = throwable;
         this.flammable = flammable;
+        this.broken = broken;
     }
 }
 // Creates a class for places including properties such as including other nearby places, what items are in this location

@@ -38,12 +38,12 @@ class Item {
     edible : boolean = false
     drinkable : boolean = false
     poisonous: boolean = false
-    breakable: boolean 
+    breakable: boolean =false
     throwable: boolean
     flammable: boolean
 
     // Constructor for new items.
-    constructor(public itemName:string, public weight:number, public place:Place, description:string, examination:string, collectable:boolean, breakable:boolean, throwable:boolean, flammable:boolean) { 
+    constructor(public itemName:string, public weight:number, public place:Place, description:string, examination:string, collectable:boolean, breakable:boolean, throwable:boolean, flammable:boolean, broken:boolean) { 
         this.itemName = itemName
         this.weight = weight
         this.place = place
@@ -53,6 +53,7 @@ class Item {
         this.breakable = breakable
         this.throwable = throwable
         this.flammable = flammable
+        this.broken = broken
     }
 
     // Methods related to items
