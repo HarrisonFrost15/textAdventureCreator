@@ -146,6 +146,7 @@ function execute(command) {
             container.open = true;
             for (let k in container.contents) {
                 gameWorld.player.place.items[k] = container.contents[k];
+                delete container.contents[k];
             }
             output("It is now open");
         }
@@ -169,6 +170,9 @@ function execute(command) {
             }
             else if (gameWorld.player.place.exits[words[2]].locked == false) {
                 output("This door is already unlocked");
+            }
+            else if (gameWorld.player.place.exits[words[2]].locked == true && gameWorld.player.inventory.hasOwnProperty("key") && gameWorld.player.inventory.key.broken == true) {
+                output("The key is broken");
             }
         }
         else {
@@ -251,15 +255,19 @@ function execute(command) {
             delete gameWorld.player.inventory[words[1]];
         }
     }
-    // else if (words[0]=="push"){
-    //     if(player.place.items[words[1]].pushable){
-    //        output("It cannot be pushed.")
-    //     }
-    //     else if( player.place.items[words[1]].pushable){
-    //         player.place.items[words[1]].pushable = true
-    //         output
-    //     }
-    // }
+    else if (words[0] == "push") {
+        let container = gameWorld.player.place.items[words[1]];
+        if (container.pushable == false) {
+            output("You can't move this");
+        }
+        else if (container.pushable == true) {
+            for (let k in container.contents) {
+                gameWorld.player.place.items[k] = container.contents[k];
+                delete container.contents[k];
+            }
+            output(`You push the ${words[2]}`);
+        }
+    }
     else if (words[0] == "hint") {
         let para = document.getElementById("para");
         para.innerHTML = "";
@@ -308,7 +316,7 @@ function execute(command) {
     else if (words[0] == "burn") {
         if (gameWorld.player.place.items[words[1]].flammable == true) {
             gameWorld.player.place.items[words[1]].alight == true;
-            gameWorld.player.place.items[words[1]].durability -= 1; //to give a sense to the burn command (?)
+            gameWorld.player.place.items[words[1]].durability -= 1;
         }
     }
     else if (words[0] == "examine") {
@@ -334,20 +342,30 @@ function execute(command) {
             output("It's already broken");
         }
     }
+    else if (words[0] == "fix") {
+        if (gameWorld.player.place.items[words[1]].broken == true && gameWorld.player.inventory.hasOwnProperty("toolbox")) {
+            gameWorld.player.place.items[words[1]].broken == false;
+            output(`You have fixed the ${words[1]}`);
+        }
+        else if (gameWorld.player.place.items[words[1]].broken == true && !gameWorld.player.inventory.hasOwnProperty("toolbox")) {
+            output("You need the toolbox in your inventory");
+        }
+    }
     output(fullDescription(gameWorld.player.place));
-    //     let itemList = gameWorld.items
-    //     if (gameWorld.items.alight == true) {
-    //         gameWorld.items.durability -= 1
-    //     }
-    //     if (gameWorld.items.durability == 0) {
-    //         gameWorld.items.broken = true
-    //         output ("This item is damaged")
-    //     }
-    //     if (gameWorld.player.health == 0) {
-    //         gameWorld.player.alive == false
-    //         output ("Oh no, you are dead!")
-    //         startGame(currentGameData)
-    //     }
+    for (let k in gameWorld.items) {
+        let item = gameWorld.items[k];
+        if (item.hidden) {
+            item.durability -= 1;
+        }
+        if (item.durability <= 0) {
+            item.broken = true;
+        }
+    }
+    if (gameWorld.player.health == 0) {
+        gameWorld.player.alive == false;
+        output("Oh no, you are dead!");
+        startGame(currentGameData);
+    }
 }
 let save = document.getElementById("save");
 save.addEventListener("click", savesaveGame);

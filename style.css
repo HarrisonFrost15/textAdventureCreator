@@ -26,10 +26,9 @@ div.scroll{
 }
 
 /* You can change the background of the body, I think the div should probably stay black on white*/
-#userInput{
-    margin-left: 5em;
-    margin-right: 1em;
-}
+/* #userInput{
+
+} */
 
 /* Why adding a background colour for the input? sorry didnt realise that was the input section */ 
 #main{
@@ -66,4 +65,6 @@ div.scroll{
     border-width: 0.5em;
     border-radius: 0.5em;
 }
-
+#fix{
+    background-color: black;
+}
