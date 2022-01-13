@@ -223,14 +223,14 @@ function execute(command) {
         }
     }
     else if (words[0] == "take") {
-        if ((gameWorld.player.place.items.hasOwnProperty(words[1])) && (gameWorld.player.place.items[words[1]].collectable == true) && (gameWorld.player.carryingWeight < 3)) {
+        if ((gameWorld.player.place.items.hasOwnProperty(words[1])) && (gameWorld.player.place.items[words[1]].collectable == true) && (gameWorld.player.carryingWeight < 50)) {
             gameWorld.player.inventory[words[1]] = gameWorld.player.place.items[words[1]];
             delete gameWorld.player.place.items[words[1]];
         }
         else if (gameWorld.player.place.items.hasOwnProperty(words[1]) == false) {
             output("That item doesn't exist");
         }
-        else if (gameWorld.player.carryingWeight > 3) {
+        else if (gameWorld.player.carryingWeight > 50) {
             output("Sorry, your bag is full, drop an item off first before trying to take something else.");
         }
         else if (gameWorld.player.place.items[words[1]].collectable == false) {

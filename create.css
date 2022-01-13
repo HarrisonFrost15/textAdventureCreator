@@ -41,3 +41,14 @@
 .la{
     display: table-cell;
 }
+#whole-thing{
+    margin:10%;
+    padding:2em;
+    border:2px solid black;
+    border-radius:20px;
+    background-color:white;
+}
+
+body{
+    background-image:linear-gradient(to bottom right, dodgerblue, blue);
+}
