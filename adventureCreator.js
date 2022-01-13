@@ -12,11 +12,12 @@ function initialWorldGen() {
     let introText = document.getElementById("introText").value;
     let playerHealth = parseInt(document.getElementById("playerHealth").value);
     let playerStamina = parseInt(document.getElementById("playerStamina").value);
+    let maximumCarryWeight = parseInt(document.getElementById("maximumCarryWeight").value);
     let startName = document.getElementById("startLocName").value;
     let startDescription = document.getElementById("startLocDescription").value;
     let startHints = document.getElementById("startHints").value;
     let startPlace = new Place(startName, startDescription, startHints);
-    newGame = new World(worldName, new Player(startPlace, playerHealth, playerStamina), introText);
+    newGame = new World(worldName, new Player(startPlace, playerHealth, playerStamina, maximumCarryWeight), introText);
     newGame.addPlace(startName.toLowerCase(), startPlace);
     let nameList = document.getElementById("placeList");
     let listItem = document.createElement("li");
@@ -42,7 +43,9 @@ function addNewPlace() {
             let locked = document.getElementById(`${directions[i]}Locked`).checked;
             let blocked = document.getElementById(`${directions[i]}Blocked`).checked;
             let needsJump = document.getElementById(`${directions[i]}NeedsJump`).checked;
-            newGame.places[placeName.toLowerCase()].addNearbyPlace(placeDirection, newGame.places[place], new Exit(locked, blocked, needsJump));
+            let hidden = document.getElementById(`${directions[i]}Hidden`).checked;
+            let durability = parseInt(document.getElementById(`${directions[i]}Durability`).value);
+            newGame.places[placeName.toLowerCase()].addNearbyPlace(placeDirection, newGame.places[place], new Exit(locked, blocked, needsJump, hidden, durability));
         }
     }
     let nameList = document.getElementById("placeList");
@@ -62,7 +65,8 @@ function addNewItem() {
     let itemWeight = parseInt(document.getElementById("itemWeight").value);
     let parentContainerType = document.getElementById("parentContainerType").value;
     let parentContainerName = document.getElementById("parentContainerName").value;
-    let generatedItem = new Item(itemID, itemName, itemWeight, itemDescription);
+    let itemDurability = parseInt(document.getElementById("itemDurability").value);
+    let generatedItem = new Item(itemID, itemName, itemWeight, itemDescription, itemDurability);
     let itemList = document.getElementById("itemList");
     let listItem = document.createElement("li");
     listItem.innerHTML = `${itemName} (${itemID})`;
@@ -104,9 +108,9 @@ function addNewItem() {
     if (document.getElementById("pushable").checked == true) {
         newGame.items[itemID].pushable = true;
     }
-    // if ((<HTMLInputElement>document.getElementById("throwable")).checked == true){
-    //     newGame.items[itemID].throwable = true
-    // }
+    if (document.getElementById("weapon").checked == true) {
+        newGame.items[itemID].weapon = true;
+    }
     if (document.getElementById("breakable").checked == true) {
         newGame.items[itemID].breakable = true;
     }

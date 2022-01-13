@@ -15,9 +15,10 @@ function initialWorldGen(){
     let introText = (<HTMLTextAreaElement>document.getElementById("introText")).value
     let playerHealth:number = parseInt((<HTMLInputElement>document.getElementById("playerHealth")).value)
     let playerStamina:number = parseInt((<HTMLInputElement>document.getElementById("playerStamina")).value)
+    let maximumCarryWeight:number = parseInt((<HTMLInputElement>document.getElementById("maximumCarryWeight")).value)
     let startName = (<HTMLInputElement>document.getElementById("startLocName")).value
-    let startDescription = (<HTMLInputElement>document.getElementById("startLocDescription")).value
-    let startHints = (<HTMLInputElement>document.getElementById("startHints")).value
+    let startDescription = (<HTMLTextAreaElement>document.getElementById("startLocDescription")).value
+    let startHints = (<HTMLTextAreaElement>document.getElementById("startHints")).value
 
     let startPlace = new Place(startName, startDescription, startHints);
 
@@ -26,7 +27,8 @@ function initialWorldGen(){
         new Player(
             startPlace,
             playerHealth,
-            playerStamina
+            playerStamina,
+            maximumCarryWeight
         ),
         introText
     );
@@ -69,6 +71,9 @@ function addNewPlace(){
             let locked = (<HTMLInputElement>document.getElementById(`${directions[i]}Locked`)).checked;
             let blocked = (<HTMLInputElement>document.getElementById(`${directions[i]}Blocked`)).checked;
             let needsJump = (<HTMLInputElement>document.getElementById(`${directions[i]}NeedsJump`)).checked;
+            let hidden = (<HTMLInputElement>document.getElementById(`${directions[i]}Hidden`)).checked;
+            let durability = parseInt((<HTMLInputElement>document.getElementById(`${directions[i]}Durability`)).value)
+
 
             newGame.places[placeName.toLowerCase()].addNearbyPlace(
                 placeDirection,
@@ -76,7 +81,9 @@ function addNewPlace(){
                 new Exit(
                     locked,
                     blocked,
-                    needsJump
+                    needsJump,
+                    hidden,
+                    durability
                 )
             )
         }
@@ -104,12 +111,15 @@ function addNewItem(){
     let itemWeight = parseInt((<HTMLInputElement>document.getElementById("itemWeight")).value)
     let parentContainerType = (<HTMLSelectElement>document.getElementById("parentContainerType")).value
     let parentContainerName = (<HTMLInputElement>document.getElementById("parentContainerName")).value
+    let itemDurability = parseInt((<HTMLInputElement>document.getElementById("itemDurability")).value)
+
 
     let generatedItem = new Item(
         itemID,
         itemName,
         itemWeight,
-        itemDescription
+        itemDescription,
+        itemDurability
     )
 
     let itemList = <HTMLUListElement>document.getElementById("itemList")
@@ -164,9 +174,9 @@ function addNewItem(){
     if ((<HTMLInputElement>document.getElementById("pushable")).checked == true){
         newGame.items[itemID].pushable = true
     }
-    // if ((<HTMLInputElement>document.getElementById("throwable")).checked == true){
-    //     newGame.items[itemID].throwable = true
-    // }
+    if ((<HTMLInputElement>document.getElementById("weapon")).checked == true){
+        newGame.items[itemID].weapon = true
+    }
     if ((<HTMLInputElement>document.getElementById("breakable")).checked == true){
         newGame.items[itemID].breakable = true
     }

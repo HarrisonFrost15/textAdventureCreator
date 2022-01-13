@@ -44,17 +44,21 @@
                         <br>
                         <input type="number" name="playerStamina" id="playerStamina">
                         <br>
+                        <label id="label" for="maximumCarryWeight">What is the maximum amount the player can carry: </label>
+                        <br>
+                        <input type="number" name="maximumCarryWeight" id="maximumCarryWeight">
+                        <br>
                         <label id="label" for="startLocName">Starting location name: </label>
                         <br>
                         <input type="text" name="startLocName" id="startLocName">
                         <br>
                         <label id="label" for="startLocDescription">Starting location description: </label>
                         <br>
-                        <input type="text" name="startLocDescription" id="startLocDescription">
+                        <textarea type="text" name="startLocDescription" id="startLocDescription"></textarea>
                         <br>
                         <label id="label" for="startHints">Add any hints about this location: </label>
                         <br>
-                        <input type="text" name="startHints" id="startHints">
+                        <textarea type="text" name="startHints" id="startHints"></textarea>
                         <br>
                     </form>
                     <button id="submitInitialGeneration">Ok!</button>
@@ -110,6 +114,18 @@
                         </p>
                         <br>
                         <p class="para">
+                        <label class="la" for="northHidden">Hidden (note: currently has no function) </label>
+                        <br>
+                        <input class="la" type="checkbox" name="northHidden" id="northHidden" value=true>
+                        </p>
+                        <br>
+                        <p class="para">
+                        <label class="la" for="northDurability">Durability: </label>
+                        <br>
+                        <input class="la" type="number" name="northDurability" id="northDurability">
+                        </p>
+                        <br>
+                        <p class="para">
                         <label class="la" for="northNeedsJump">Need to jump </label>
                         <br>
                         <input class="la" type="checkbox" name="northNeedsJump" id="northNeedsJump" value=true>
@@ -139,6 +155,18 @@
                         <label class="la" for="eastBlocked">Blocked </label>
                         <br>
                         <input class="la" type="checkbox" name="eastBlocked" id="eastBlocked" value=true>
+                        </p>
+                        <br>
+                        <p class="para">
+                        <label class="la" for="eastHidden">Hidden (note: currently has no function) </label>
+                        <br>
+                        <input class="la" type="checkbox" name="eastHidden" id="eastHidden" value=true>
+                        </p>
+                        <br>
+                        <p class="para"></p>
+                        <label class="la" for="eastDurability">Durability: </label>
+                        <br>
+                        <input class="la" type="number" name="eastDurability" id="eastDurability">
                         </p>
                         <br>
                         <p class="para">
@@ -174,6 +202,18 @@
                         </p>
                         <br>
                         <p class="para">
+                        <label class="la" for="southHidden">Hidden (note: currently has no function) </label>
+                        <br>
+                        <input class="la" type="checkbox" name="southHidden" id="southHidden" value=true>
+                        </p>
+                        <br>
+                        <p class="para"></p>
+                        <label class="la" for="southDurability">Durability: </label>
+                        <br>
+                        <input class="la" type="number" name="southDurability" id="southDurability">
+                        </p>
+                        <br>
+                        <p class="para">
                         <label class="la" for="southNeedsJump">Need to jump </label>
                         <br>
                         <input class="la" type="checkbox" name="southNeedsJump" id="southNeedsJump" value=true>
@@ -203,6 +243,18 @@
                         <label class="la" for="westBlocked">Blocked </label>
                         <br>
                         <input class="la" type="checkbox" name="westBlocked" id="westBlocked" value=true>
+                        </p>
+                        <br>
+                        <p class="para">
+                        <label class="la" for="westHidden">Hidden (note: currently has no function) </label>
+                        <br>
+                        <input class="la" type="checkbox" name="westHidden" id="westHidden" value=true>
+                        </p>
+                        <br>
+                        <p class="para"></p>
+                        <label class="la" for="westDurability">Durability: </label>
+                        <br>
+                        <input class="la" type="number" name="westDurability" id="westDurability">
                         </p>
                         <br>
                         <p class="para">
@@ -238,6 +290,18 @@
                         </p>
                         <br>
                         <p class="para">
+                        <label class="la" for="upHidden">Hidden (note: currently has no function) </label>
+                        <br>
+                        <input class="la" type="checkbox" name="upHidden" id="upHidden" value=true>
+                        </p>
+                        <br>
+                        <p class="para"></p>
+                        <label class="la" for="upDurability">Durability: </label>
+                        <br>
+                        <input class="la" type="number" name="upDurability" id="upDurability">
+                        </p>
+                        <br>
+                        <p class="para">
                         <label class="la" for="upNeedsJump">Need to jump </label>
                         <br>
                         <input class="la" type="checkbox" name="upNeedsJump" id="upNeedsJump" value=true>
@@ -270,6 +334,18 @@
                         </p>
                         <br>
                         <p class="para">
+                        <label class="la" for="downHidden">Hidden (note: currently has no function) </label>
+                        <br>
+                        <input class="la" type="checkbox" name="downHidden" id="downHidden" value=true>
+                        </p>
+                        <br>
+                        <p class="para"></p>
+                        <label class="la" for="downDurability">Durability: </label>
+                        <br>
+                        <input class="la" type="number" name="downDurability" id="downDurability">
+                        </p>
+                        <br>
+                        <p class="para">
                         <label class="la" for="downNeedsJump">Need to jump </label>
                         <br>
                         <input class="la" type="checkbox" name="downNeedsJump" id="downNeedsJump" value=true>
@@ -289,7 +365,7 @@
                     <br>
                     <form id="fo">
                         <p class="para">
-                        <label class="la" for="itemName">What is the item's name: </label>
+                        <label class="la" for="itemName">What is the item's name(one word only): </label>
                         <br>
                         <input class="la" type="text" name="itemName" id="itemName">
                         </p>
@@ -306,6 +382,13 @@
                         <label class="la" for="itemWeight">How much does it weigh: </label>
                         <br>
                         <input class="la" type="number" name="itemWeight" id="itemWeight">
+                        </p>
+                        <hr>
+                        <br>
+                        <p class="para">
+                        <label class="la" for="itemDurability">What is the item's durability: </label>
+                        <br>
+                        <input class="la" type="number" name="itemDurability" id="itemDurability">
                         </p>
                         <hr>
                         <br>
@@ -410,6 +493,13 @@
                         <label class="la" for="breakable">Breakable: </label>
                         <br>
                         <input class="la" type="checkbox" name="breakable" id="breakable">
+                        </p>
+                        <hr>
+                        <br>
+                        <p class="para">
+                        <label class="la" for="weapon">Weapon: </label>
+                        <br>
+                        <input class="la" type="checkbox" name="weapon" id="weapon">
                         </p>
                         <hr>
                         <br>

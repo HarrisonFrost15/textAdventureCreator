@@ -69,15 +69,26 @@ function output(input) {
 function fullDescription(place) {
     return `
     ${place.description}<br>
-    You see: ${listProperties(place.items)}<br>
+    You see: ${listItems(place.items)}<br>
     You can go: ${listProperties(place.nearby)}<br>
     Inventory: ${listProperties(gameWorld.player.inventory)}<br>
     `;
 }
-// Reads the values in an object (using the parameter o) and appends them to a string so that it can be output.
-function listProperties(o) {
+// Reads the values in an object (using the parameter list) and appends them to a string so that it can be output, so long as the item is not hidden
+function listItems(list) {
     let output = "";
-    for (let i in o) {
+    for (let i in list) {
+        let item = list[i];
+        if (item.hidden == false) {
+            output += i + ", ";
+        }
+    }
+    return output;
+}
+// Reads the values in an object (using the parameter list) and appends them to a string so that it can be output.
+function listProperties(list) {
+    let output = "";
+    for (let i in list) {
         output += i + ", ";
     }
     return output;
@@ -151,9 +162,9 @@ function execute(command) {
         }
         else {
             if (gameWorld.player.place.items[words[1]].locked && gameWorld.player.inventory.hasOwnProperty("key")) {
-                gameWorld.player.place.items.obstacle.locked = false;
+                gameWorld.player.place.items[words[1]].locked = false;
             }
-            else if (gameWorld.player.place.items[words[1]].locked && !gameWorld.player.inventory.hasOwnProperty("key")) {
+            else if (gameWorld.player.place.items[words[1]].locked && gameWorld.player.inventory.hasOwnProperty("key") == false) {
                 output("You need a key");
             }
             else if (gameWorld.player.place.items[words[1]].locked == false) {
@@ -178,7 +189,7 @@ function execute(command) {
         else if (words[1] == "exit" && gameWorld.player.place.exits[words[2]].blocked == false) {
             output("You don't need to dig this");
         }
-        else if (gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.place.items[words[1]].broken == false) {
+        else if (gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.inventory.shovel.broken == false) {
             // Object.values(player.place.items).forEach(i =>{ 
             //     if (i.hidden) {
             //         i.hidden = false
@@ -189,12 +200,13 @@ function execute(command) {
                 let item = gameWorld.player.place.items[i];
                 if (item.hidden) {
                     item.hidden = false;
-                    output(`You have dug a ${item.itemName} out!`);
+                    output(`You have dug up a ${item.itemName}!`);
                 }
             }
+            gameWorld.player.inventory.shovel.durability -= 1;
         }
         else if (gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.place.items[words[1]].broken == true) {
-            output(`${words[1]} is broken, you cannot dig.`);
+            output(`Your shovel is broken, you cannot dig.`);
         }
     }
     else if (words[0] == "climb") {
@@ -206,21 +218,21 @@ function execute(command) {
         }
     }
     else if (words[0] == "take") {
-        if ((gameWorld.player.place.items.hasOwnProperty(words[1])) && (gameWorld.player.place.items[words[1]].collectable == true) && (gameWorld.player.carryingWeight < 50) && (gameWorld.player.place.items[words[1]].alight == false)) {
+        if ((gameWorld.player.place.items.hasOwnProperty(words[1])) && (gameWorld.player.place.items[words[1]].collectable == true) && (gameWorld.player.carryingWeight < gameWorld.player.maximumCarryWeight) && (gameWorld.player.place.items[words[1]].alight == false)) {
             gameWorld.player.inventory[words[1]] = gameWorld.player.place.items[words[1]];
             delete gameWorld.player.place.items[words[1]];
         }
         else if (gameWorld.player.place.items.hasOwnProperty(words[1]) == false) {
             output("That item doesn't exist");
         }
-        else if (gameWorld.player.carryingWeight > 50) {
+        else if (gameWorld.player.carryingWeight > gameWorld.player.maximumCarryWeight) {
             output("Sorry, your bag is full, drop an item off first before trying to take something else.");
         }
         else if (gameWorld.player.place.items[words[1]].collectable == false) {
             output("You can't pick this up come on...");
         }
         else if (gameWorld.player.place.items[words[1]].alight == true) {
-            output(`You can't pick ${words[1]} up, It's burning`);
+            output(`You can't pick the ${words[1]} up, it's burning`);
         }
     }
     else if (words[0] == "drop") {
@@ -251,37 +263,64 @@ function execute(command) {
     else if (words[0] == "eat") {
         if ((gameWorld.player.place.items[words[1]].edible == true) && (gameWorld.player.place.items[words[1]].poisonous == false)) {
             gameWorld.player.health += 5;
+            delete gameWorld.player.place.items[words[1]];
         }
         else if ((gameWorld.player.place.items[words[1]].edible == true) && (gameWorld.player.place.items[words[1]].poisonous == true)) {
             gameWorld.player.health -= 5;
+            delete gameWorld.player.place.items[words[1]];
         }
-        else if ((gameWorld.player.place.items[words[1]].edible == false)) {
+        else if ((gameWorld.player.inventory[words[1]].edible == true) && (gameWorld.player.inventory[words[1]].poisonous == false)) {
+            gameWorld.player.health += 5;
+            delete gameWorld.player.inventory[words[1]];
+        }
+        else if ((gameWorld.player.inventory[words[1]].edible == true) && (gameWorld.player.inventory[words[1]].poisonous == true)) {
+            gameWorld.player.health -= 5;
+            delete gameWorld.player.inventory[words[1]];
+        }
+        else if ((gameWorld.player.place.items[words[1]].edible == false || gameWorld.player.inventory[words[1]].edible == false)) {
             output("I don't think you want to eat this");
         }
     }
     else if (words[0] == "drink") {
         if ((gameWorld.player.place.items[words[1]].drinkable == true) && (gameWorld.player.place.items[words[1]].poisonous == false)) {
             gameWorld.player.stamina += 5;
+            delete gameWorld.player.place.items[words[1]];
         }
         else if ((gameWorld.player.place.items[words[1]].drinkable == true) && (gameWorld.player.place.items[words[1]].poisonous == true)) {
             gameWorld.player.stamina -= 5;
+            delete gameWorld.player.place.items[words[1]];
         }
-        else if ((gameWorld.player.place.items[words[1]].drinkable == false)) {
+        else if ((gameWorld.player.inventory[words[1]].drinkable == true) && (gameWorld.player.inventory[words[1]].poisonous == false)) {
+            gameWorld.player.stamina += 5;
+            delete gameWorld.player.inventory[words[1]];
+        }
+        else if ((gameWorld.player.inventory[words[1]].drinkable == true) && (gameWorld.player.inventory[words[1]].poisonous == true)) {
+            gameWorld.player.stamina -= 5;
+            delete gameWorld.player.inventory[words[1]];
+        }
+        else if ((gameWorld.player.place.items[words[1]].drinkable == false || gameWorld.player.inventory[words[1]].drinkable == false)) {
             output("I don't think you can drink this");
         }
     }
     else if (words[0] == "attack") {
         if (words[1] == "door" || words[1] == "exit") {
-            // gameWorld.player.place.exits[words[2]].durability -= 1
+            gameWorld.player.place.exits[words[2]].durability -= 1;
             output(`You hit the ${words[1]} with the ${words[3]}`);
-            // if (gameWorld.player.place.exits[words[2]].durability <= 0){
-            //     gameWorld.player.place.exits[words[2]].locked = false
-            //     output (`You break the ${words[1]}`)
-            // }
+            if (gameWorld.player.place.exits[words[2]].durability <= 0) {
+                gameWorld.player.place.exits[words[2]].locked = false;
+                output(`You break the ${words[1]}`);
+            }
         }
         else if ((gameWorld.player.place.items[words[1]].attackable == true && gameWorld.player.inventory[words[2]].weapon == true)) {
-            gameWorld.player.place.items[words[1]].durability -= 1;
-            output(`You almost broke ${words[1]}, however it looks like it needs one more hit to break completely`);
+            gameWorld.player.place.items[words[1]].durability -= 2;
+            gameWorld.player.inventory[words[2]].durability -= 1;
+            if (gameWorld.player.place.items[words[1]].durability >= 1) {
+                output(`You almost broke ${words[1]}, however it looks like it needs one more hit to break completely`);
+            }
+            else if (gameWorld.player.place.items[words[1]].durability <= 0) {
+                gameWorld.player.place.items[words[1]].broken = true;
+                output(`You broke the ${words[1]}`);
+            }
         }
         else if ((gameWorld.player.place.items[words[1]].attackable == false && gameWorld.player.inventory[words[2]].weapon == false)) {
             output(`You cannot hit a ${words[1]} come on...`);
@@ -317,18 +356,21 @@ function execute(command) {
         }
     }
     else if (words[0] == "fix") {
-        if (gameWorld.player.place.items[words[1]].broken == true && gameWorld.player.inventory.hasOwnProperty("toolbox")) {
+        if ((gameWorld.player.place.items[words[1]].broken == true || gameWorld.player.inventory[words[1]].broken == true) && gameWorld.player.inventory.hasOwnProperty("toolbox")) {
             gameWorld.player.place.items[words[1]].broken == false;
             output(`You have fixed the ${words[1]}`);
         }
-        else if (gameWorld.player.place.items[words[1]].broken == true && !gameWorld.player.inventory.hasOwnProperty("toolbox")) {
+        else if ((gameWorld.player.place.items[words[1]].broken == true || gameWorld.player.inventory[words[1]].broken == true) && !gameWorld.player.inventory.hasOwnProperty("toolbox")) {
             output("You need the toolbox in your inventory");
+        }
+        else {
+            output("This isn't broken");
         }
     }
     output(fullDescription(gameWorld.player.place));
     for (let k in gameWorld.items) {
         let item = gameWorld.items[k];
-        if (item.hidden) {
+        if (item.alight) {
             item.durability -= 1;
         }
         if (item.durability <= 0) {
