@@ -40,7 +40,9 @@ function addNewPlace() {
             let placeDirection = directions[i];
             let place = (document.getElementById(`${directions[i]}Place`).value).toLowerCase();
             let locked = document.getElementById(`${directions[i]}Locked`).checked;
-            newGame.places[placeName.toLowerCase()].addNearbyPlace(placeDirection, newGame.places[place], new Exit(locked));
+            let blocked = document.getElementById(`${directions[i]}Blocked`).checked;
+            let needsJump = document.getElementById(`${directions[i]}NeedsJump`).checked;
+            newGame.places[placeName.toLowerCase()].addNearbyPlace(placeDirection, newGame.places[place], new Exit(locked, blocked, needsJump));
         }
     }
     let nameList = document.getElementById("placeList");

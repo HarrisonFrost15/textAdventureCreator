@@ -102,9 +102,14 @@ class Place{
 
 class Exit {
     locked : boolean
+    blocked : boolean
+    needsJump : boolean
+    // hidden : boolean
 
-    constructor(locked:boolean){
+    constructor(locked:boolean, blocked:boolean, needsJump:boolean){
         this.locked = locked
+        this.blocked = blocked
+        this.needsJump = needsJump
     }
 }
 
@@ -129,6 +134,7 @@ class Item {
     attackable: boolean = false
     flammable: boolean = false
     durability: number = 2
+    weapon: boolean = false
 
 
     // Constructor for new items.

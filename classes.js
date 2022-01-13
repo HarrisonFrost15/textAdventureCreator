@@ -89,8 +89,13 @@ class Place {
 }
 class Exit {
     locked;
-    constructor(locked) {
+    blocked;
+    needsJump;
+    // hidden : boolean
+    constructor(locked, blocked, needsJump) {
         this.locked = locked;
+        this.blocked = blocked;
+        this.needsJump = needsJump;
     }
 }
 // Defines items that exist in the world, these can be obstacles or items the player can pick up.
@@ -114,6 +119,7 @@ class Item {
     attackable = false;
     flammable = false;
     durability = 2;
+    weapon = false;
     // Constructor for new items.
     constructor(itemID, itemName, weight, description) {
         this.itemID = itemID;
