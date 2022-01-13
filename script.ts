@@ -15,61 +15,66 @@ startButton.addEventListener("click", startDefault)
 let loadButton = <HTMLButtonElement> document.getElementById("loadDifferentGame")
 loadButton.addEventListener("click", loadDifferentGame)
 
+function startDefault(){
+
+    // let cabin = new Place("Cabin", "You find yourself awake in a cabin alone with no memory of how you got there.","Reach outside.")
+    // cabin.addItem("key", new Item("key",1, cabin, "It appears to be an antique brass key", "This key looks like it would a door", true, true, true, false, false))
+    // cabin.addItem("hat", new Item("hat",2, cabin, "It appears to be a wooly hat", "This hat looks like it could keep some ears warm", true, false, true, true, false))
+    // cabin.addItem("coat", new Item("coat", 3, cabin, "It appears to be a windproof coat", "This coat looks like it would keep the wind off any exposed skin", true, false, true, true, false ))
+    // cabin.addItem("gloves", new Item("gloves", 2, cabin, "It appears to be a pair of wooly gloves", "These gloves would keep some hands warm", true, false, true, true, false ))
+    // cabin.addItem("boots", new Item("boots", 2, cabin, "It appears to be a pair of work boots", "These boots look nice and comfy", true,false ,true, true, false ))
+    // cabin.addItem("door", new Item("door", 10, cabin, "This is a door", "This door appears to be locked, find the key to unlock and open the door", false, true, false, true, false))
+    // cabin.addItem("window", new Item("window", 10, cabin, "It appears to be a normal window with a pane of glass in", "It appears that the window is slightly a jar", false, true, false, false, false))
+    // cabin.addItem("fireplace", new Item("fireplace", 10, cabin, "It appears to be a brick fireplace", "This fireplace seems to have a firewood holder in middle of it", false, false, false, true, false))
+    // cabin.addItem("bed", new Item("bed", 10, cabin, "It appears to be a messy bed as if someone woke up in it", "This bed looks comfy to sleep in", false, true, false, true, false))
+    // cabin.addItem("table", new Item("table", 10, cabin, "it appears to be an oak table with a single chair", "This table looks like it has a key on it",false, true, false, true, false))
+    // cabin.addItem("chair", new Item("chair", 10, cabin, "it appears to be an oak chair", "This chair looks like it would we uncomfortable to sit in", false, true, true, false, true))
+    // let drawer = new Item("drawer",15,cabin,"It appears to be an oak drawer","it happens to have a silver knife inside it",false, true, false, false,false)
+    // cabin.addItem("drawer", drawer)
+    // drawer.contents["knife"]= new Item("knife",2,cabin,"It appears to be a silver knife","This knife can be used to attack", true, false, true, false, false)
+
+
+    // let outsideCabin = cabin.addPlace("north", new Place("outsideCabin","You are now outside of the cabin, finding yourself in the middle of an unknown forest.","You need to collect supplies."), new Exit(true))
+    // outsideCabin.addItem("Backpack", new Item("Backpack", 2, outsideCabin, "It appears to be a hiking backpack", "This backpack looks like it could hold some items", false, true, true, true, false))
+
+    // let topLeftCabin = outsideCabin.addPlace("west", new Place("topLeftCabin","You find yourself just ouside of the cabin to the left",""), new Exit(true));
+    // topLeftCabin.addItem("Tree Stump", new Item("treeStump", 10, outsideCabin, "It appears that the stump has been used for splitting logs", "This tree stump appears to have an axe sticking in it with 4 pieces of firewood laying on the floor",false, false, false, true, false))
+    // // needs to be on top of treeStump not in - topLeftCabin.addItem("Axe", new Item("Axe", 5, outsideCabin, "It appears to be a heavy steel axe with a wooden handle", "This axe looks like  it would be good for cutting tree down and splitting logs", false))
+    // let leftSideCabin = topLeftCabin.addPlace("south", new Place("leftSideCabin","You find yourself outside of the cabin, at the other side of the window",""), new Exit(true));
+    // let bottomLeftCabin = leftSideCabin.addPlace("south", new Place("bottomLeftCabin","You find yourself at the back left of the cabin",""), new Exit(true));
+
+    // let topRightCabin = outsideCabin.addPlace("east", new Place("topRightCabin","You find yourself just ouside of the cabin to the right",""), new Exit(true));
+    // let rightSideCabin = topRightCabin.addPlace("south", new Place("rightSideCabin","You find yourself outside of the cabin at the right side",""), new Exit(true));
+    // let firewoodStorage = new Item("firewoodStorage", 10, outsideCabin, "It appears to be storage for firewood","This firewood storage bin looks like it contains 25 pieces of firewood",false, false, false, true, false)
+    // rightSideCabin.addItem("Firewood Storage", firewoodStorage)
+    // firewoodStorage.contents["Firewood Log"]=new Item("Firewood Log", 3, outsideCabin, "It appears to be a piece of oak", "This firewood is perfect for burning", true, true, false, true, false)
+    // let bottomRightCabin = rightSideCabin.addPlace("south", new Place("bottomRightCabin","You find yourself at the back right of the cabin",""), new Exit(true));
+
+    // let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin","You find yourself at the back of the cabin",""), new Exit(true))
+    
+    // let mineEntrance = backOfCabin.addPlace("south", new Place("mineEntrance", "You find yourself in front of an old abandoned coal mine",""), new Exit(true))
+    // mineEntrance.addItem("Pickaxe", new Item("Pickaxe", 5, mineEntrance, "It appears to be a steel pickaxe","This pickaxe looks like it could break a rock in two",true,true,true,false))
+
+    // let ghostTown = leftSideCabin.addPlace("west", new Place("ghostTown", "You find yourself in the middle of a ghost town",""), new Exit(true))
+    // ghostTown.addItem("Old Newspaper", new Item(1, "Old Newspaper", 3, "It appears to be an old newspaper with a baffling headline"))
+
+    // player = new Player(cabin,0,true, 20,10)
+    // player.place.items.door.locked = true
+
+    let defaultGameJSON = fetch("defaultGame.json")
+    .then(response => response.json())
+    .then(json => console.log(json.glossary.title));
+
+    gameWorld = ((<any>JSON).retrocycle)((<any>JSON).parse(defaultGameJSON))
+
+    output (fullDescription(gameWorld.player.place))
+}
+
 function loadDifferentGame(){
     let jsonInput = (<HTMLTextAreaElement>document.getElementById("jsonInput")).value
     gameWorld = ((<any>JSON).retrocycle)((<any>JSON).parse(jsonInput))
 
-    output (gameWorld.player.place.fullDescription())
-
-}
-
-function startDefault(){
-
-    let cabin = new Place("Cabin", "You find yourself awake in a cabin alone with no memory of how you got there.","Reach outside.")
-    cabin.addItem("key", new Item("key",1, cabin, "It appears to be an antique brass key", "This key looks like it would a door", true, true, true, false, false))
-    cabin.addItem("hat", new Item("hat",2, cabin, "It appears to be a wooly hat", "This hat looks like it could keep some ears warm", true, false, true, true, false))
-    cabin.addItem("coat", new Item("coat", 3, cabin, "It appears to be a windproof coat", "This coat looks like it would keep the wind off any exposed skin", true, false, true, true, false ))
-    cabin.addItem("gloves", new Item("gloves", 2, cabin, "It appears to be a pair of wooly gloves", "These gloves would keep some hands warm", true, false, true, true, false ))
-    cabin.addItem("boots", new Item("boots", 2, cabin, "It appears to be a pair of work boots", "These boots look nice and comfy", true,false ,true, true, false ))
-    cabin.addItem("door", new Item("door", 10, cabin, "This is a door", "This door appears to be locked, find the key to unlock and open the door", false, true, false, true, false))
-    cabin.addItem("window", new Item("window", 10, cabin, "It appears to be a normal window with a pane of glass in", "It appears that the window is slightly a jar", false, true, false, false, false))
-    cabin.addItem("fireplace", new Item("fireplace", 10, cabin, "It appears to be a brick fireplace", "This fireplace seems to have a firewood holder in middle of it", false, false, false, true, false))
-    cabin.addItem("bed", new Item("bed", 10, cabin, "It appears to be a messy bed as if someone woke up in it", "This bed looks comfy to sleep in", false, true, false, true, false))
-    cabin.addItem("table", new Item("table", 10, cabin, "it appears to be an oak table with a single chair", "This table looks like it has a key on it",false, true, false, true, false))
-    cabin.addItem("chair", new Item("chair", 10, cabin, "it appears to be an oak chair", "This chair looks like it would we uncomfortable to sit in", false, true, true, false, true))
-    let drawer = new Item("drawer",15,cabin,"It appears to be an oak drawer","it happens to have a silver knife inside it",false, true, false, false,false)
-    cabin.addItem("drawer", drawer)
-    drawer.contents["knife"]= new Item("knife",2,cabin,"It appears to be a silver knife","This knife can be used to attack", true, false, true, false, false)
-
-
-    let outsideCabin = cabin.addPlace("north", new Place("outsideCabin","You are now outside of the cabin, finding yourself in the middle of an unknown forest.","You need to collect supplies."), new Exit(true))
-    outsideCabin.addItem("Backpack", new Item("Backpack", 2, outsideCabin, "It appears to be a hiking backpack", "This backpack looks like it could hold some items", false, true, true, true, false))
-
-    let topLeftCabin = outsideCabin.addPlace("west", new Place("topLeftCabin","You find yourself just ouside of the cabin to the left",""), new Exit(true));
-    topLeftCabin.addItem("Tree Stump", new Item("treeStump", 10, outsideCabin, "It appears that the stump has been used for splitting logs", "This tree stump appears to have an axe sticking in it with 4 pieces of firewood laying on the floor",false, false, false, true, false))
-    // needs to be on top of treeStump not in - topLeftCabin.addItem("Axe", new Item("Axe", 5, outsideCabin, "It appears to be a heavy steel axe with a wooden handle", "This axe looks like  it would be good for cutting tree down and splitting logs", false))
-    let leftSideCabin = topLeftCabin.addPlace("south", new Place("leftSideCabin","You find yourself outside of the cabin, at the other side of the window",""), new Exit(true));
-    let bottomLeftCabin = leftSideCabin.addPlace("south", new Place("bottomLeftCabin","You find yourself at the back left of the cabin",""), new Exit(true));
-
-    let topRightCabin = outsideCabin.addPlace("east", new Place("topRightCabin","You find yourself just ouside of the cabin to the right",""), new Exit(true));
-    let rightSideCabin = topRightCabin.addPlace("south", new Place("rightSideCabin","You find yourself outside of the cabin at the right side",""), new Exit(true));
-    let firewoodStorage = new Item("firewoodStorage", 10, outsideCabin, "It appears to be storage for firewood","This firewood storage bin looks like it contains 25 pieces of firewood",false, false, false, true, false)
-    rightSideCabin.addItem("Firewood Storage", firewoodStorage)
-    firewoodStorage.contents["Firewood Log"]=new Item("Firewood Log", 3, outsideCabin, "It appears to be a piece of oak", "This firewood is perfect for burning", true, true, false, true, false)
-    let bottomRightCabin = rightSideCabin.addPlace("south", new Place("bottomRightCabin","You find yourself at the back right of the cabin",""), new Exit(true));
-
-    let backOfCabin = bottomLeftCabin.addPlace("east", new Place("backOfCabin","You find yourself at the back of the cabin",""), new Exit(true))
-    
-    let mineEntrance = backOfCabin.addPlace("south", new Place("mineEntrance", "You find yourself in front of an old abandoned coal mine",""), new Exit(true))
-    mineEntrance.addItem("Pickaxe", new Item("Pickaxe", 5, mineEntrance, "It appears to be a steel pickaxe","This pickaxe looks like it could break a rock in two",true,true,true,false))
-
-    let ghostTown = leftSideCabin.addPlace("west", new Place("ghostTown", "You find yourself in the middle of a ghost town",""), new Exit(true))
-    ghostTown.addItem("Old Newspaper", new Item(1, "Old Newspaper", 3, "It appears to be an old newspaper with a baffling headline"))
-
-    player = new Player(cabin,0,true, 20,10)
-    player.place.items.door.locked = true
-
-    output (player.place.fullDescription())
+    output (fullDescription(gameWorld.player.place))
 }
 
 let ob= <HTMLElement> document.getElementById("outputBox")
@@ -97,6 +102,16 @@ function keyPressed (e:KeyboardEvent){
 // Adds the output text to the end of the game text
 function output (input:string){
     document.getElementById("outputBox")!.innerHTML += input + "<br>"
+}
+
+// When called, returns the description, nearby items and nearby places to be shown on screen
+function fullDescription(place:Place):string{
+    return `
+    ${place.description}<br>
+    You see: ${listProperties(place.items)}<br>
+    You can go: ${listProperties(place.nearby)}<br>
+    Inventory: ${listProperties(gameWorld.player.inventory)}<br>
+    `
 }
 
 // Reads the values in an object (using the parameter o) and appends them to a string so that it can be output.
@@ -336,15 +351,15 @@ function execute (command:string){
     }
     
 
-    output (gameWorld.player.place.fullDescription())
+    output (fullDescription(gameWorld.player.place))
     
-    if (gameWorld.items.alight == true) {
-        gameWorld.items.durability -= 1
-    }
-    if (gameWorld.items.durability == 0) {
-        gameWorld.items.broken = true
-        output ("This item is damaged")
-    }
+    // if (gameWorld.items.alight == true) {
+    //     gameWorld.items.durability -= 1
+    // }
+    // if (gameWorld.items.durability == 0) {
+    //     gameWorld.items.broken = true
+    //     output ("This item is damaged")
+    // }
     
     if (gameWorld.player.health == 0) {
         gameWorld.player.alive == false

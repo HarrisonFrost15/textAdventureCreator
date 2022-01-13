@@ -66,7 +66,7 @@ function addNewPlace(){
         if ((<HTMLInputElement> document.getElementById(directions[i])).checked == true){
             let placeDirection = directions[i]
             let place = ((<HTMLInputElement>document.getElementById(`${directions[i]}Place`)).value).toLowerCase();
-            let locked = (<HTMLInputElement>document.getElementById("locked")).checked;
+            let locked = (<HTMLInputElement>document.getElementById(`${directions[i]}Locked`)).checked;
 
             newGame.places[placeName.toLowerCase()].addNearbyPlace(
                 placeDirection,

@@ -58,15 +58,15 @@ class Place{
         this.hints = hints
     }
     
-    // When called, returns the description, nearby items and nearby places to be shown on screen
-    fullDescription():string{
-        return `
-        ${gameWorld.player.place.description}<br>
-        You see: ${listProperties(gameWorld.player.place.items)}<br>
-        You can go: ${listProperties(gameWorld.player.place.nearby)}<br>
-        Inventory: ${listProperties(gameWorld.player.inventory)}<br>
-        `
-    }
+    // // When called, returns the description, nearby items and nearby places to be shown on screen
+    // fullDescription():string{
+    //     return `
+    //     ${gameWorld.player.place.description}<br>
+    //     You see: ${listProperties(gameWorld.player.place.items)}<br>
+    //     You can go: ${listProperties(gameWorld.player.place.nearby)}<br>
+    //     Inventory: ${listProperties(gameWorld.player.inventory)}<br>
+    //     `
+    // }
 
     // Links a new place to the current one and also creates a reverse link so you can go back to the previous place
     addNearbyPlace(direction:string, place:Place, exit:Exit){
