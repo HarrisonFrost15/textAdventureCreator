@@ -1,8 +1,12 @@
+
 div { 
     width : 500px;
     border : 30px;
     padding: 100px;
     margin: 40px;
+    background-color: lightgrey;
+    border-color: grey;
+    outline-style: 
 
 
 }

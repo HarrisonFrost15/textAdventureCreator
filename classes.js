@@ -119,6 +119,7 @@ class Item {
     attackable = false;
     flammable = false;
     durability = 2;
+    weapon = false;
     // Constructor for new items.
     constructor(itemID, itemName, weight, description) {
         this.itemID = itemID;

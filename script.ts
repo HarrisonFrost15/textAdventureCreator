@@ -154,10 +154,11 @@ function execute (command:string){
         else if (gameWorld.player.place.exits[words[0]].blocked == true){
             output("This exit is blocked <br>")
         }
-
+        else if (gameWorld.player.place.exits[words[0]].needsJump = true){
+            output("The gap is too big")
+        }
     }
-    
-    
+        
     else if(words[0]=="jump"){
         if("north,east,south,west".includes(words[1]) && gameWorld.player.place.exits[words[1]].locked == false){
             gameWorld.player.place=gameWorld.player.place.nearby[words[1]]
@@ -171,7 +172,10 @@ function execute (command:string){
         if (container.open){
             output("It's already opened")
         }
-        else{
+        else if (container.locked == true){
+            output ("You can't open this, it's locked")
+        }
+        else {
            container.open = true
            for (let k in container.contents){
             gameWorld.player.place.items[k]=container.contents[k]
@@ -191,7 +195,7 @@ function execute (command:string){
     }
     
     else if(words[0] == "unlock"){
-        if (words[1] == "door"){
+        if (words[1] == "door" || words[1] == "exit"){
             if (gameWorld.player.place.exits[words[2]].locked == true && gameWorld.player.inventory.hasOwnProperty("key")){
                 gameWorld.player.place.exits[words[2]].locked = false
                 output (`You unlock the ${words[2]} door`)
@@ -229,8 +233,12 @@ function execute (command:string){
 
     else if (words[0] == "dig") {
         
-        if (words[1] == "exit" && gameWorld.player.place.exits[words[2]].blocked){  
-
+        if (words[1] == "exit" && gameWorld.player.place.exits[words[2]].blocked == true && gameWorld.player.inventory.hasOwnProperty("shovel")){  
+            gameWorld.player.place.exits[words[2]].blocked == false
+            output("You've unblocked the exit")
+        }
+        else if(words[1] == "exit" && gameWorld.player.place.exits[words[2]].blocked == false){
+            output("You don't need to dig this")
         }
         
         else if(gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.place.items[words[1]].broken == false){
@@ -334,11 +342,11 @@ function execute (command:string){
     }
     
     else if (words[0] == "attack"){
-        if ((gameWorld.player.place.items[words[1]].attackable == true)) {
+        if ((gameWorld.player.place.items[words[1]].attackable == true && gameWorld.player.inventory[words[2]].weapon == true)) {
             gameWorld.player.place.items[words[1]].durability -= 1
             output (`You almost broke ${words[1]}, however it looks like it needs one more hit to break completely`)
         }
-        else if ((gameWorld.player.place.items[words[1]].attackable == false)) {
+        else if ((gameWorld.player.place.items[words[1]].attackable == false && gameWorld.player.inventory[words[2]].weapon == false)) {
             output (`You cannot hit a ${words[1]} come on...`)
         }
     }

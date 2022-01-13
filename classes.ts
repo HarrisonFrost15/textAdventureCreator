@@ -134,6 +134,7 @@ class Item {
     attackable: boolean = false
     flammable: boolean = false
     durability: number = 2
+    weapon: boolean = false
 
 
     // Constructor for new items.
