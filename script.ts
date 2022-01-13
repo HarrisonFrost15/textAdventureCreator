@@ -81,6 +81,12 @@ async function fetchString(url: string) {
     }
 }
 
+let currentGameData = ""
+function startGame(JSONdata: string){
+    currentGameData = JSONdata
+    gameWorld = ((<any>JSON).retrocycle)((<any>JSON).parse(JSONdata))
+}
+
 function loadDifferentGame(){
     let jsonInput = (<HTMLTextAreaElement>document.getElementById("jsonInput")).value
     gameWorld = ((<any>JSON).retrocycle)((<any>JSON).parse(jsonInput))
@@ -196,7 +202,7 @@ function execute (command:string){
     
     else if(words[0] == "unlock"){
         if (words[1] == "door" || words[1] == "exit"){
-            if (gameWorld.player.place.exits[words[2]].locked == true && gameWorld.player.inventory.hasOwnProperty("key")){
+            if (gameWorld.player.place.exits[words[2]].locked == true && gameWorld.player.inventory.hasOwnProperty("key") && gameWorld.player.inventory.key.broken == false){
                 gameWorld.player.place.exits[words[2]].locked = false
                 output (`You unlock the ${words[2]} door`)
             }
@@ -265,27 +271,30 @@ function execute (command:string){
 
     
     else if(words[0]=="climb"){
-        if("north,east,south,west,up,down".includes(words[1]) && gameWorld.player.place.exits[words[1]].locked == false){
+        if("up,down".includes(words[1]) && gameWorld.player.place.exits[words[1]].locked == false){
             gameWorld.player.place=gameWorld.player.place.nearby[words[1]]
         }
-        else if("north,east,south,west".includes(words[1]) && gameWorld.player.place.exits[words[1]].locked == true){
+        else if("up,down".includes(words[1]) && (gameWorld.player.place.exits[words[1]].locked == true || gameWorld.player.place.exits[words[1]].blocked == true)){
             output("This way is shut.")
         }
     }
 
     else if (words[0]=="take"){
-        if ((gameWorld.player.place.items.hasOwnProperty(words[1])) && (gameWorld.player.place.items[words[1]].collectable == true) && (gameWorld.player.carryingWeight < 3)) { 
+        if ((gameWorld.player.place.items.hasOwnProperty(words[1])) && (gameWorld.player.place.items[words[1]].collectable == true) && (gameWorld.player.carryingWeight < 50) &&(gameWorld.player.place.items[words[1]].alight == false)) { 
             gameWorld.player.inventory[words[1]]=gameWorld.player.place.items[words[1]] 
             delete gameWorld.player.place.items[words[1]] 
         }
         else if (gameWorld.player.place.items.hasOwnProperty(words[1]) == false) {
             output("That item doesn't exist")
         }
-        else if (gameWorld.player.carryingWeight > 3) {
+        else if (gameWorld.player.carryingWeight > 50) {
             output ("Sorry, your bag is full, drop an item off first before trying to take something else.")
         }
         else if (gameWorld.player.place.items[words[1]].collectable == false) {
             output ("You can't pick this up come on...")
+        }
+        else if(gameWorld.player.place.items[words[1]].alight == true){
+            output(`You can't pick ${words[1]} up, It's burning`)
         }
     }
 
@@ -342,7 +351,15 @@ function execute (command:string){
     }
     
     else if (words[0] == "attack"){
-        if ((gameWorld.player.place.items[words[1]].attackable == true && gameWorld.player.inventory[words[2]].weapon == true)) {
+        if (words[1] == "door" || words[1] == "exit"){
+            // gameWorld.player.place.exits[words[2]].durability -= 1
+            output(`You hit the ${words[1]} with the ${words[3]}`)
+            // if (gameWorld.player.place.exits[words[2]].durability <= 0){
+            //     gameWorld.player.place.exits[words[2]].locked = false
+            //     output (`You break the ${words[1]}`)
+            // }
+        }
+        else if ((gameWorld.player.place.items[words[1]].attackable == true && gameWorld.player.inventory[words[2]].weapon == true)) {
             gameWorld.player.place.items[words[1]].durability -= 1
             output (`You almost broke ${words[1]}, however it looks like it needs one more hit to break completely`)
         }
@@ -354,6 +371,7 @@ function execute (command:string){
     else if (words[0] == "burn") {
         if (gameWorld.player.place.items[words[1]].flammable == true) {
             gameWorld.player.place.items[words[1]].alight == true
+            gameWorld.player.place.items[words[1]].durability -= 1 //to give a sense to the burn command (?)
         }
     }
 
@@ -387,19 +405,23 @@ function execute (command:string){
 
     output (fullDescription(gameWorld.player.place))
     
-    // if (gameWorld.items.alight == true) {
-    //     gameWorld.items.durability -= 1
-    // }
-    // if (gameWorld.items.durability == 0) {
-    //     gameWorld.items.broken = true
-    //     output ("This item is damaged")
-    // }
+//     let itemList = gameWorld.items
+
     
-    if (gameWorld.player.health == 0) {
-        gameWorld.player.alive == false
-        output ("Oh no, you are dead!")
-        startDefault ()
-    }
+    
+//     if (gameWorld.items.alight == true) {
+//         gameWorld.items.durability -= 1
+//     }
+//     if (gameWorld.items.durability == 0) {
+//         gameWorld.items.broken = true
+//         output ("This item is damaged")
+//     }
+    
+//     if (gameWorld.player.health == 0) {
+//         gameWorld.player.alive == false
+//         output ("Oh no, you are dead!")
+//         startGame(currentGameData)
+//     }
 }
 
 

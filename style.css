@@ -22,9 +22,7 @@ div.scroll{
 
 /* this allows it to be scrollable */
 .body{
-  background-image: url(https://wallpapercave.com/wp/wp9767078.png);
-  background-repeat: no-repeat;
-  background-size: cover;
+    background-color: rgb(140, 27, 27);
 }
 
 /* You can change the background of the body, I think the div should probably stay black on white*/

@@ -105,6 +105,7 @@ class Exit {
     blocked : boolean
     needsJump : boolean
     // hidden : boolean
+    // durability : number
 
     constructor(locked:boolean, blocked:boolean, needsJump:boolean){
         this.locked = locked
