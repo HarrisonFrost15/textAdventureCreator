@@ -39,7 +39,7 @@ function addNewPlace() {
         if (document.getElementById(directions[i]).checked == true) {
             let placeDirection = directions[i];
             let place = (document.getElementById(`${directions[i]}Place`).value).toLowerCase();
-            let locked = document.getElementById("locked").checked;
+            let locked = document.getElementById(`${directions[i]}Locked`).checked;
             newGame.places[placeName.toLowerCase()].addNearbyPlace(placeDirection, newGame.places[place], new Exit(locked));
         }
     }
