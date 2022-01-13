@@ -2,6 +2,21 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+/* this allows it to be scrollable */
+body{
+  background-image: url(https://wallpapercave.com/wp/wp9767078.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1em;
+    margin-left:10%;
+    margin-right:10%;
+}
 div.scroll{
     overflow-x: hidden;
     overflow-y: auto;
@@ -13,47 +28,16 @@ div.scroll{
     margin-right: 1em;
     justify-content: center;
     padding: 1em;
-    float: left;
+    /* float: left; */
     border-style: solid;
     border-color: black;
     border-width: 0.5em;
     border-radius: 0.5em;
 }
-
-/* this allows it to be scrollable */
-.body{
-  background-image: url(https://wallpapercave.com/wp/wp9767078.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-/* You can change the background of the body, I think the div should probably stay black on white*/
-#userInput{
-    margin-left: 5em;
-    margin-right: 1em;
-}
-
-/* Why adding a background colour for the input? sorry didnt realise that was the input section */ 
-#main{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 1em;
-}
-
 #hintbox{
     width: 30em;
     height: 30em;
 }
-
-#subMain{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: fit-content;
-    height: fit-content;
-}
-
 .card{
     display: none;
     background-color: white;
@@ -69,3 +53,14 @@ div.scroll{
     border-radius: 0.5em;
 }
 
+
+#subMain{
+    /* display: flex;
+    justify-content: center;
+    flex-wrap: wrap; */
+    /* margin-left:10%;
+    margin-right:10%; */
+}
+#userInput{
+
+}

@@ -25,7 +25,6 @@
     height: 100%;
 }
 #nameList{
-    position: absolute;
     margin-left: 60em;
 }
 #output{
@@ -51,4 +50,6 @@
 
 body{
     background-image:linear-gradient(to bottom right, dodgerblue, blue);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
