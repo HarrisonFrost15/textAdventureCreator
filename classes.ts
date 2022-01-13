@@ -102,9 +102,14 @@ class Place{
 
 class Exit {
     locked : boolean
+    blocked : boolean
+    needsJump : boolean
+    // hidden : boolean
 
-    constructor(locked:boolean){
+    constructor(locked:boolean, blocked:boolean, needsJump:boolean){
         this.locked = locked
+        this.blocked = blocked
+        this.needsJump = needsJump
     }
 }
 

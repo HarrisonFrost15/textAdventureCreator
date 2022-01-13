@@ -59,7 +59,7 @@ function addNewPlace(){
             placeDescription,
             placeHints
         )
-    );
+    )
 
     const directions = ["north", "east", "south", "west", "up", "down"]
     for(let i in directions){
@@ -67,11 +67,18 @@ function addNewPlace(){
             let placeDirection = directions[i]
             let place = ((<HTMLInputElement>document.getElementById(`${directions[i]}Place`)).value).toLowerCase();
             let locked = (<HTMLInputElement>document.getElementById(`${directions[i]}Locked`)).checked;
+            let blocked = (<HTMLInputElement>document.getElementById(`${directions[i]}Blocked`)).checked;
+            let needsJump = (<HTMLInputElement>document.getElementById(`${directions[i]}NeedsJump`)).checked;
 
             newGame.places[placeName.toLowerCase()].addNearbyPlace(
                 placeDirection,
                 newGame.places[place],
-                new Exit(locked));
+                new Exit(
+                    locked,
+                    blocked,
+                    needsJump
+                )
+            )
         }
     }
 

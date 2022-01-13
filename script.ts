@@ -15,7 +15,7 @@ startButton.addEventListener("click", startDefault)
 let loadButton = <HTMLButtonElement> document.getElementById("loadDifferentGame")
 loadButton.addEventListener("click", loadDifferentGame)
 
-function startDefault(){
+async function startDefault(){
 
     // let cabin = new Place("Cabin", "You find yourself awake in a cabin alone with no memory of how you got there.","Reach outside.")
     // cabin.addItem("key", new Item("key",1, cabin, "It appears to be an antique brass key", "This key looks like it would a door", true, true, true, false, false))
@@ -61,13 +61,24 @@ function startDefault(){
     // player = new Player(cabin,0,true, 20,10)
     // player.place.items.door.locked = true
 
-    let defaultGameJSON = fetch("defaultGame.json")
-    .then(response => response.json())
-    .then(json => console.log(json.glossary.title));
+    let defaultGameJSON = await fetchString("defaultGame.json")
 
     gameWorld = ((<any>JSON).retrocycle)((<any>JSON).parse(defaultGameJSON))
 
     output (fullDescription(gameWorld.player.place))
+}
+
+async function fetchString(url: string) {
+    const method = "GET"
+    const headers = { 'Accept': 'text/html', 'Content-Type': 'application/json' }
+    const response = await fetch(url, { method: method, headers: headers })
+    //const response = await fetch(url, {method:method,headers:{'Accept':'text/html','Content-Type':'application/json'}})
+    if (response.ok) {
+        return await response.text()
+    }
+    else {
+        console.log(`unexpected response status ${response.status} + ${response.statusText}`)
+    }
 }
 
 function loadDifferentGame(){
@@ -134,20 +145,25 @@ function execute (command:string){
 
 
     if("north,east,south,west,up,down".includes(words[0])){
-        if (gameWorld.player.place.exits[words[0]].locked == false){
+        if (gameWorld.player.place.exits[words[0]].locked == false && gameWorld.player.place.exits[words[0]].blocked == false && gameWorld.player.place.exits[words[0]].needsJump == false){
             gameWorld.player.place=gameWorld.player.place.nearby[words[0]]
         }
         else if (gameWorld.player.place.exits[words[0]].locked == true){
             output("The way is shut <br>")
         }
+        else if (gameWorld.player.place.exits[words[0]].blocked == true){
+            output("This exit is blocked <br>")
+        }
+
     }
     
     
     else if(words[0]=="jump"){
-        if("north,east,south,west".includes(words[1])){
+        if("north,east,south,west".includes(words[1]) && gameWorld.player.place.exits[words[1]].locked == false){
             gameWorld.player.place=gameWorld.player.place.nearby[words[1]]
         }
-        
+        else if("north,east,south,west".includes(words[1]) && gameWorld.player.place.exits[words[1]].locked == true)
+            output("This way is shut.")
     }
     
     else if (words[0] == "open"){
@@ -212,7 +228,12 @@ function execute (command:string){
     }
 
     else if (words[0] == "dig") {
-        if(gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.place.items[words[1]].broken == false){
+        
+        if (words[1] == "exit" && gameWorld.player.place.exits[words[2]].blocked){  
+
+        }
+        
+        else if(gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.place.items[words[1]].broken == false){
             
             // Object.values(player.place.items).forEach(i =>{ 
             //     if (i.hidden) {
@@ -227,15 +248,20 @@ function execute (command:string){
                     output(`You have dug a ${item.itemName} out!`)
                 }
             }
-        }else if(gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.place.items[words[1]].broken == true){
+        }
+        
+        else if(gameWorld.player.inventory.hasOwnProperty("shovel") && gameWorld.player.place.items[words[1]].broken == true){
             output(`${words[1]} is broken, you cannot dig.`)
         }
     }
 
     
     else if(words[0]=="climb"){
-        if("north,east,south,west,up,down".includes(words[1])){
+        if("north,east,south,west,up,down".includes(words[1]) && gameWorld.player.place.exits[words[1]].locked == false){
             gameWorld.player.place=gameWorld.player.place.nearby[words[1]]
+        }
+        else if("north,east,south,west".includes(words[1]) && gameWorld.player.place.exits[words[1]].locked == true){
+            output("This way is shut.")
         }
     }
 
