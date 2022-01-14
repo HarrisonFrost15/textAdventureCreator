@@ -60,7 +60,7 @@ function loadFromInput(){
 
 function loadJSON(){
     let jsonData:any = (<HTMLTextAreaElement>document.getElementById("jsonInput")).value
-    newGame = ((<any>JSON).retrocycle)((<any>JSON).parse(jsonData))
+    newGame = ((<any>JSON).retrocycle)((<any>JSON).parse(jsonData));
 
     (<HTMLFormElement> document.getElementById("initialGenForm")).reset();
     (<HTMLFormElement> document.getElementById("placeForm")).reset();

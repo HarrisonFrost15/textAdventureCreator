@@ -8,8 +8,9 @@ div {
     padding: 2em;
     margin: 80px;
     background-color: lightgrey;
-    border-color: grey;
+    border-color: blue;
     outline-style: ridge;
+    
 
 } 
 .heading{

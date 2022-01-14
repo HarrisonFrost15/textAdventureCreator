@@ -307,18 +307,22 @@ function execute (command:string){
     else if (words[0]=="eat"){                             
         if ((gameWorld.player.place.items[words[1]].edible == true) && (gameWorld.player.place.items[words[1]].poisonous == false)) {
             gameWorld.player.health += 5
+            output ("That tasted good")
             delete gameWorld.player.place.items[words[1]]
         }
         else if ((gameWorld.player.place.items[words[1]].edible == true) && (gameWorld.player.place.items[words[1]].poisonous == true)) {
             gameWorld.player.health -= 5
+            output("That was disgusting")
             delete gameWorld.player.place.items[words[1]]
         }
         else if((gameWorld.player.inventory[words[1]].edible == true) && (gameWorld.player.inventory[words[1]].poisonous == false)){
             gameWorld.player.health += 5
+            output ("That tasted good")
             delete gameWorld.player.inventory[words[1]]
         }
         else if ((gameWorld.player.inventory[words[1]].edible == true) && (gameWorld.player.inventory[words[1]].poisonous == true)) {
             gameWorld.player.health -= 5
+            output("That was disgusting")
             delete gameWorld.player.inventory[words[1]]
         }
         else if ((gameWorld.player.place.items[words[1]].edible == false || gameWorld.player.inventory[words[1]].edible == false)) {
@@ -361,7 +365,7 @@ function execute (command:string){
             gameWorld.player.place.items[words[1]].durability -= 2
             gameWorld.player.inventory[words[2]].durability -=1
             if(gameWorld.player.place.items[words[1]].durability >= 1){
-                output (`You almost broke ${words[1]}, however it looks like it needs one more hit to break completely`)
+                output (`You almost broke ${words[1]}, however it looks like it needs more hitting to break completely`)
             }
             else if (gameWorld.player.place.items[words[1]].durability <= 0){
                 gameWorld.player.place.items[words[1]].broken = true

@@ -45,7 +45,8 @@ function loadFromInput() {
 }
 function loadJSON() {
     let jsonData = document.getElementById("jsonInput").value;
-    newGame = (JSON.retrocycle)(JSON.parse(jsonData))(document.getElementById("initialGenForm")).reset();
+    newGame = (JSON.retrocycle)(JSON.parse(jsonData));
+    document.getElementById("initialGenForm").reset();
     document.getElementById("placeForm").reset();
     document.getElementById("itemForm").reset();
     document.getElementById("newButtons").style.display = "inline";
