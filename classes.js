@@ -11,8 +11,8 @@ class World {
         this.player = player;
         this.startText = startText;
     }
-    addPlace(name, place) {
-        this.places[name] = place;
+    addPlace(id, place) {
+        this.places[id] = place;
     }
     addItem(id, item) {
         this.items[id] = item;
@@ -22,41 +22,36 @@ class World {
 class Player {
     inventory;
     place;
-    time = 0;
+    // time: number = 0
     alive = true;
     health = 20;
     stamina = 10;
     carryingWeight = 0;
-    constructor(place, health, stamina) {
+    maximumCarryWeight;
+    constructor(place, health, stamina, maximumCarryWeight) {
         this.inventory = {};
         this.place = place;
         this.health = health;
         this.stamina = stamina;
+        this.maximumCarryWeight = maximumCarryWeight;
     }
 }
 // Creates a class for places including properties such as including other nearby places, what items are in this location
 class Place {
+    placeID;
     name;
     description = "No further information";
     nearby = {};
     items = {};
     exits = {};
     hints;
-    constructor(name, description, hints) {
+    constructor(placeID, name, description, hints) {
+        this.placeID = placeID;
         this.name = name;
         this.description = description;
         this.nearby = {};
         this.hints = hints;
     }
-    // // When called, returns the description, nearby items and nearby places to be shown on screen
-    // fullDescription():string{
-    //     return `
-    //     ${gameWorld.player.place.description}<br>
-    //     You see: ${listProperties(gameWorld.player.place.items)}<br>
-    //     You can go: ${listProperties(gameWorld.player.place.nearby)}<br>
-    //     Inventory: ${listProperties(gameWorld.player.inventory)}<br>
-    //     `
-    // }
     // Links a new place to the current one and also creates a reverse link so you can go back to the previous place
     addNearbyPlace(direction, place, exit) {
         this.nearby[direction] = place;
@@ -91,11 +86,14 @@ class Exit {
     locked;
     blocked;
     needsJump;
-    // hidden : boolean
-    constructor(locked, blocked, needsJump) {
+    hidden;
+    durability;
+    constructor(locked, blocked, needsJump, hidden, durability) {
         this.locked = locked;
         this.blocked = blocked;
         this.needsJump = needsJump;
+        this.hidden = hidden;
+        this.durability = durability;
     }
 }
 // Defines items that exist in the world, these can be obstacles or items the player can pick up.
@@ -104,6 +102,9 @@ class Item {
     itemName;
     description;
     weight;
+    durability;
+    parentContainerType;
+    parentContainerID;
     contents = {};
     alight = false;
     broken = false;
@@ -118,14 +119,16 @@ class Item {
     breakable = false;
     attackable = false;
     flammable = false;
-    durability = 2;
     weapon = false;
     // Constructor for new items.
-    constructor(itemID, itemName, weight, description) {
+    constructor(itemID, itemName, weight, description, durability, parentContainerType, parentContainerID) {
         this.itemID = itemID;
         this.description = description;
         this.itemName = itemName;
         this.weight = weight;
+        this.durability = durability;
+        this.parentContainerType = parentContainerType;
+        this.parentContainerID = parentContainerID;
     }
     // Methods related to items
     addItem(name, item) {

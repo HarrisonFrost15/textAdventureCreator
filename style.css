@@ -17,6 +17,15 @@ body{
     margin-left:10%;
     margin-right:10%;
 }
+
+#outputBox{
+    background-color: white;
+    border-style: solid;
+    border-color: black;
+    border-width: 0.5em;
+    border-radius: 0.5em;
+}
+
 div.scroll{
     overflow-x: hidden;
     overflow-y: auto;
@@ -24,20 +33,26 @@ div.scroll{
     height: 80vh;
     width: 50vw;
     background-color: white;
-    margin-left: 1me;
-    margin-right: 1em;
     justify-content: center;
     padding: 1em;
-    /* float: left; */
-    border-style: solid;
-    border-color: black;
-    border-width: 0.5em;
-    border-radius: 0.5em;
 }
+
+.body{
+    background-color: rgb(140, 27, 27);
+}
+
+#main{
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    padding: 1em;
+}
+
 #hintbox{
     width: 30em;
     height: 30em;
 }
+
 .card{
     display: none;
     background-color: white;
@@ -54,13 +69,28 @@ div.scroll{
 }
 
 
-#subMain{
-    /* display: flex;
-    justify-content: center;
-    flex-wrap: wrap; */
-    /* margin-left:10%;
-    margin-right:10%; */
+#buttons{
+    display: flex;
+    justify-content: space-around;
 }
-#userInput{
 
+#jsonInputForm{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+}
+
+#jsonInput{
+    width: 100%;
+    margin-bottom: 00.5em;
+}
+
+#subMain{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#userInput{
+    width:100%
 }

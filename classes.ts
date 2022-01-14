@@ -14,8 +14,8 @@ class World{
         this.startText = startText
     }
 
-    addPlace(name:string, place:Place){
-        this.places[name]=place
+    addPlace(id:number, place:Place){
+        this.places[id]=place
     }
 
     addItem(id:number, item:Item){
@@ -27,23 +27,26 @@ class World{
 class Player{ 
     inventory: Record <string, Item>
     place: Place
-    time: number = 0
+    // time: number = 0
     alive: boolean = true
     health: number = 20
     stamina: number = 10
     carryingWeight = 0
+    maximumCarryWeight: number
 
-    constructor(place: Place, health: number, stamina: number){
+    constructor(place: Place, health: number, stamina: number, maximumCarryWeight:number){
         this.inventory ={}
         this.place = place
         this.health = health
         this.stamina = stamina
+        this.maximumCarryWeight = maximumCarryWeight
     }
 }
 
 
 // Creates a class for places including properties such as including other nearby places, what items are in this location
 class Place{
+    placeID: number
     name:string
     description:string = "No further information"
     nearby: Record <string, Place> = {}
@@ -51,22 +54,13 @@ class Place{
     exits: Record <string, Exit> = {}
     hints: string 
     
-    constructor(name:string, description:string, hints:string){
+    constructor(placeID:number, name:string, description:string, hints:string){
+        this.placeID = placeID
         this.name = name
         this.description = description
         this.nearby = {}
         this.hints = hints
     }
-    
-    // // When called, returns the description, nearby items and nearby places to be shown on screen
-    // fullDescription():string{
-    //     return `
-    //     ${gameWorld.player.place.description}<br>
-    //     You see: ${listProperties(gameWorld.player.place.items)}<br>
-    //     You can go: ${listProperties(gameWorld.player.place.nearby)}<br>
-    //     Inventory: ${listProperties(gameWorld.player.inventory)}<br>
-    //     `
-    // }
 
     // Links a new place to the current one and also creates a reverse link so you can go back to the previous place
     addNearbyPlace(direction:string, place:Place, exit:Exit){
@@ -104,12 +98,15 @@ class Exit {
     locked : boolean
     blocked : boolean
     needsJump : boolean
-    // hidden : boolean
+    hidden : boolean
+    durability : number
 
-    constructor(locked:boolean, blocked:boolean, needsJump:boolean){
+    constructor(locked:boolean, blocked:boolean, needsJump:boolean, hidden:boolean, durability:number){
         this.locked = locked
         this.blocked = blocked
         this.needsJump = needsJump
+        this.hidden = hidden
+        this.durability = durability
     }
 }
 
@@ -119,6 +116,9 @@ class Item {
     itemName: string
     description: string
     weight: number
+    durability: number
+    parentContainerType : string
+    parentContainerID : number
     contents: Record <string, Item> = {}
     alight: boolean = false
     broken: boolean = false
@@ -133,16 +133,18 @@ class Item {
     breakable: boolean = false
     attackable: boolean = false
     flammable: boolean = false
-    durability: number = 2
     weapon: boolean = false
 
 
     // Constructor for new items.
-    constructor(itemID:number, itemName:string, weight:number, description:string) { 
+    constructor(itemID:number, itemName:string, weight:number, description:string, durability:number, parentContainerType : string, parentContainerID : number) { 
         this.itemID = itemID
         this.description = description
         this.itemName = itemName
         this.weight = weight
+        this.durability = durability
+        this.parentContainerType = parentContainerType
+        this.parentContainerID = parentContainerID
     }
 
     // Methods related to items
