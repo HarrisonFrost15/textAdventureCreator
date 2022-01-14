@@ -34,15 +34,35 @@ body{
 #newButtons{
     display: none;
 }
-/* #initialGeneration{
-
-} */
+#getPlaceIDForm{
+    display: none;
+}
+#getItemIDForm{
+    display: none;
+}
 #newPlace{
     display: none;
 }
 #newItem{
     display: none;
 }
+
+#submitPlace{
+    display: none;
+}
+
+#savePlaceEdits{
+    display: none;
+}
+
+#submitItem{
+    display: none;
+}
+
+#saveItemEdits{
+    display: none;
+}
+
 #fo{
     display: table;
 }
@@ -59,4 +79,26 @@ body{
 #generateJSON{
     margin-top: 6em;
     bottom: 0;
+}
+
+#loadButtons{
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
+#jsonInputDiv{
+    display: none;
+    flex-direction: column;
+    align-content: center;
+    position: absolute;
+    top: 3em;
+    right: 3em;
+
+}
+
+#jsonInput{
+    height: 7em;
+    width: 36em;
+    resize: none;
 }

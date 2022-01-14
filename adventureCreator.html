@@ -17,17 +17,48 @@
     <div id="whole-thing">
         <h3>Welcome to the adventure creator</h3>
     
+        <div id="loadButtons">
+            <button id="reset">Reset all data</button>
+            <button id="loadFromInput"> Load data from input</button>
+            <!-- <button id="saveToLocalStorage"> Save to local storage</button>
+            <button id="loadFromLocalStorage">Load from local storage</button> -->
+        </div>
+
+        <div id="jsonInputDiv">
+            <textarea name="jsonInput" id="jsonInput"></textarea>
+            <button id="loadJSON">Load!</button>
+        </div>
+
         <div id="editor">
             <div>
                 <div id="newButtons">
                     <button id="newPlaceButton">New Place</button>
                     <button id="newItemButton">New Item</button>
+                    <button id="editInitialGen">Edit Initial World Information</button>
+                    <button id="getPlaceID">Edit Place</button>
+                    <button id="getItemID">Edit Item</button>
+                </div>
+
+                <div id="getPlaceIDForm">
+                    <form>
+                        <label for="placeIDInput">What is the ID number of the place you'd like to edit:</label>
+                        <input type="number" name="placeIDInput" id="placeIDInput">
+                    </form>
+                    <button id="editPlace">Edit!</button>
+                </div>
+
+                <div id="getItemIDForm">
+                    <form>
+                        <label for="itemIDInput">What is the ID number of the item you'd like to edit:</label>
+                        <input type="number" name="itemIDInput" id="itemIDInput">
+                    </form>
+                    <button id="editItem">Edit!</button>
                 </div>
     
                 <div id="initialGeneration">
                     <h4>Please fill in the starting information for your game</h4>
                         <br>
-                    <form>
+                    <form id="initialGenForm">
                         <label id="label" for="worldName">What is the name of your game or world: </label>
                         <br>
                         <input type="text" name="worldName" id="worldName">
@@ -61,12 +92,12 @@
                         <textarea type="text" name="startHints" id="startHints"></textarea>
                         <br>
                     </form>
-                    <button id="submitInitialGeneration">Ok!</button>
+                    <button id="submitInitialGeneration">Save</button>
                 </div>
     
                 <div id="newPlace">
                     Enter the details for the new place<br><br>
-                    <form id="fo">
+                    <form id="placeForm">
                         <p class="para">
                         <label class="la" for="placeName">What is this place called: </label>
                         <br>
@@ -96,27 +127,27 @@
                         </p>
                         <br>
                         <p class="para">
-                        <label class="la" for="northPlace">Location name: </label>
+                        <label class="la" for="northPlace">Location ID: </label>
                         <br>
-                        <input class="la" type="text" name="northPlace" id="northPlace">
+                        <input class="la" type="number" name="northPlace" id="northPlace">
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="northLocked">Locked </label>
                         <br>
-                        <input class="la" type="checkbox" name="northLocked" id="northLocked" value=true>
+                        <input class="la" type="checkbox" name="northLocked" id="northLocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="northBlocked">Blocked </label>
                         <br>
-                        <input class="la" type="checkbox" name="northBlocked" id="northBlocked" value=true>
+                        <input class="la" type="checkbox" name="northBlocked" id="northBlocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="northHidden">Hidden (note: currently has no function) </label>
                         <br>
-                        <input class="la" type="checkbox" name="northHidden" id="northHidden" value=true>
+                        <input class="la" type="checkbox" name="northHidden" id="northHidden" >
                         </p>
                         <br>
                         <p class="para">
@@ -128,7 +159,7 @@
                         <p class="para">
                         <label class="la" for="northNeedsJump">Need to jump </label>
                         <br>
-                        <input class="la" type="checkbox" name="northNeedsJump" id="northNeedsJump" value=true>
+                        <input class="la" type="checkbox" name="northNeedsJump" id="northNeedsJump" >
                         <hr>
                         </p>
                         <br>
@@ -140,27 +171,27 @@
                         </p>
                         <br>
                         <p class="para">
-                        <label class="la" for="eastPlace">Location name: </label>
+                        <label class="la" for="eastPlace">Location ID: </label>
                         <br>
-                        <input class="la" type="text" name="eastPlace" id="eastPlace">
+                        <input class="la" type="number" name="eastPlace" id="eastPlace">
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="eastLocked">Locked </label>
                         <br>
-                        <input class="la" type="checkbox" name="eastLocked" id="eastLocked" value=true><br>
+                        <input class="la" type="checkbox" name="eastLocked" id="eastLocked" ><br>
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="eastBlocked">Blocked </label>
                         <br>
-                        <input class="la" type="checkbox" name="eastBlocked" id="eastBlocked" value=true>
+                        <input class="la" type="checkbox" name="eastBlocked" id="eastBlocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="eastHidden">Hidden (note: currently has no function) </label>
                         <br>
-                        <input class="la" type="checkbox" name="eastHidden" id="eastHidden" value=true>
+                        <input class="la" type="checkbox" name="eastHidden" id="eastHidden" >
                         </p>
                         <br>
                         <p class="para"></p>
@@ -172,7 +203,7 @@
                         <p class="para">
                         <label class="la" for="eastNeedsJump">Need to jump </label>
                         <br>
-                        <input class="la" type="checkbox" name="eastNeedsJump" id="eastNeedsJump" value=true>
+                        <input class="la" type="checkbox" name="eastNeedsJump" id="eastNeedsJump" >
                         <hr>
                         </p>
                         <br>
@@ -184,27 +215,27 @@
                         </p>
                         <br>
                         <p class="para">
-                        <label class="la" for="southPlace">Location name: </label>
+                        <label class="la" for="southPlace">Location ID: </label>
                         <br>
-                        <input class="la" type="text" name="southPlace" id="southPlace">
+                        <input class="la" type="number" name="southPlace" id="southPlace">
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="southLocked">Locked </label>
                         <br>
-                        <input class="la" type="checkbox" name="southLocked" id="southLocked" value=true><br>
+                        <input class="la" type="checkbox" name="southLocked" id="southLocked" ><br>
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="southBlocked">Blocked </label>
                         <br>
-                        <input class="la" type="checkbox" name="southBlocked" id="southBlocked" value=true>
+                        <input class="la" type="checkbox" name="southBlocked" id="southBlocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="southHidden">Hidden (note: currently has no function) </label>
                         <br>
-                        <input class="la" type="checkbox" name="southHidden" id="southHidden" value=true>
+                        <input class="la" type="checkbox" name="southHidden" id="southHidden" >
                         </p>
                         <br>
                         <p class="para"></p>
@@ -216,7 +247,7 @@
                         <p class="para">
                         <label class="la" for="southNeedsJump">Need to jump </label>
                         <br>
-                        <input class="la" type="checkbox" name="southNeedsJump" id="southNeedsJump" value=true>
+                        <input class="la" type="checkbox" name="southNeedsJump" id="southNeedsJump" >
                         <hr>
                         </p>
                         <br>
@@ -228,27 +259,27 @@
                         </p>
                         <br>
                         <p class="para"> 
-                        <label class="la" for="westPlace">Location name: </label>
+                        <label class="la" for="westPlace">Location ID: </label>
                         <br>
-                        <input class="la" type="text" name="westPlace" id="westPlace"> 
+                        <input class="la" type="number" name="westPlace" id="westPlace"> 
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="westLocked">Locked </label>
                         <br>
-                        <input class="la" type="checkbox" name="westLocked" id="westLocked" value=true>
+                        <input class="la" type="checkbox" name="westLocked" id="westLocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="westBlocked">Blocked </label>
                         <br>
-                        <input class="la" type="checkbox" name="westBlocked" id="westBlocked" value=true>
+                        <input class="la" type="checkbox" name="westBlocked" id="westBlocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="westHidden">Hidden (note: currently has no function) </label>
                         <br>
-                        <input class="la" type="checkbox" name="westHidden" id="westHidden" value=true>
+                        <input class="la" type="checkbox" name="westHidden" id="westHidden" >
                         </p>
                         <br>
                         <p class="para"></p>
@@ -260,7 +291,7 @@
                         <p class="para">
                         <label class="la" for="westNeedsJump">Need to jump </label>
                         <br>
-                        <input class="la" type="checkbox" name="westNeedsJump" id="westNeedsJump" value=true>
+                        <input class="la" type="checkbox" name="westNeedsJump" id="westNeedsJump" >
                         <hr>
                         </p>
                         <br> 
@@ -272,27 +303,27 @@
                         </p>
                         <br>
                         <p class="para"> 
-                        <label class="la" for="upPlace">Location name: </label>
+                        <label class="la" for="upPlace">Location ID: </label>
                         <br>
-                        <input class="la" type="text" name="upPlace" id="upPlace">
+                        <input class="la" type="number" name="upPlace" id="upPlace">
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="upLocked">Locked </label>
                         <br>
-                        <input class="la" type="checkbox" name="upLocked" id="upLocked" value=true>
+                        <input class="la" type="checkbox" name="upLocked" id="upLocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="upBlocked">Blocked </label>
                         <br>
-                        <input class="la" type="checkbox" name="upBlocked" id="upBlocked" value=true>
+                        <input class="la" type="checkbox" name="upBlocked" id="upBlocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="upHidden">Hidden (note: currently has no function) </label>
                         <br>
-                        <input class="la" type="checkbox" name="upHidden" id="upHidden" value=true>
+                        <input class="la" type="checkbox" name="upHidden" id="upHidden" >
                         </p>
                         <br>
                         <p class="para"></p>
@@ -304,7 +335,7 @@
                         <p class="para">
                         <label class="la" for="upNeedsJump">Need to jump </label>
                         <br>
-                        <input class="la" type="checkbox" name="upNeedsJump" id="upNeedsJump" value=true>
+                        <input class="la" type="checkbox" name="upNeedsJump" id="upNeedsJump" >
                         <hr>
                         </p>    
                         <br>   
@@ -316,27 +347,27 @@
                         </p>
                         <br>
                         <p class="para">
-                        <label class="la" for="downPlace">Location name: </label>
+                        <label class="la" for="downPlace">Location ID: </label>
                         <br>
-                        <input class="la" type="text" name="downPlace" id="downPlace"> 
+                        <input class="la" type="number" name="downPlace" id="downPlace"> 
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="downLocked">Locked </label>
                         <br>
-                        <input class="la" type="checkbox" name="downLocked" id="downLocked" value=true>
+                        <input class="la" type="checkbox" name="downLocked" id="downLocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="downBlocked">Blocked </label>
                         <br>
-                        <input class="la" type="checkbox" name="downBlocked" id="downBlocked" value=true>
+                        <input class="la" type="checkbox" name="downBlocked" id="downBlocked" >
                         </p>
                         <br>
                         <p class="para">
                         <label class="la" for="downHidden">Hidden (note: currently has no function) </label>
                         <br>
-                        <input class="la" type="checkbox" name="downHidden" id="downHidden" value=true>
+                        <input class="la" type="checkbox" name="downHidden" id="downHidden" >
                         </p>
                         <br>
                         <p class="para"></p>
@@ -348,7 +379,7 @@
                         <p class="para">
                         <label class="la" for="downNeedsJump">Need to jump </label>
                         <br>
-                        <input class="la" type="checkbox" name="downNeedsJump" id="downNeedsJump" value=true>
+                        <input class="la" type="checkbox" name="downNeedsJump" id="downNeedsJump" >
                         <hr>
                         </p>
                         <br>
@@ -356,14 +387,15 @@
                     </form>
                     <br>
                     <br>
-                    <button id="submitPlace">Ok!</button>
+                    <button id="submitPlace">Save</button>
+                    <button id="savePlaceEdits">Save</button>
                 </div>
     
                 <div id="newItem">
                     <u>Fill in the details for the item: </u>
                     <br>
                     <br>
-                    <form id="fo">
+                    <form id="itemForm">
                         <p class="para">
                         <label class="la" for="itemName">What is the item's name(one word only): </label>
                         <br>
@@ -402,9 +434,9 @@
                         <br>
                         <br>
                         <p class="para">
-                        <label class="la" for="parentContainerName">Parent container name if place, ID if item: </label>
+                        <label class="la" for="parentContainerName">Parent container ID: </label>
                         <br>
-                        <input class="la" type="text" name="parentContainerName" id="parentContainerName">
+                        <input class="la" type="number" name="parentContainerName" id="parentContainerName">
                         </p>
                         <hr>
                         <br>
@@ -483,13 +515,6 @@
                         <hr>
                         <br>
                         <p class="para">
-                        <label class="la" for="throwable">Throwable: </label>
-                        <br>
-                        <input class="la" type="checkbox" name="throwable" id="throwable">
-                        </p>
-                        <hr>
-                        <br>
-                        <p class="para">
                         <label class="la" for="breakable">Breakable: </label>
                         <br>
                         <input class="la" type="checkbox" name="breakable" id="breakable">
@@ -504,6 +529,13 @@
                         <hr>
                         <br>
                         <p class="para">
+                        <label class="la" for="attackable">Can it be attacked: </label>
+                        <br>
+                        <input class="la" type="checkbox" name="attackable" id="attackable">
+                        </p>
+                        <hr>
+                        <br>
+                        <p class="para">
                         <label class="la" for="broken">Broken: </label>
                         <br>
                         <input class="la" type="checkbox" name="broken" id="broken">
@@ -514,7 +546,8 @@
                     </form>
                     
     
-                    <button id="submitItem">Ok!</button>
+                    <button id="submitItem">Save</button>
+                    <button id="saveItemEdits">Save</button>
                 </div>
             </div>
                 

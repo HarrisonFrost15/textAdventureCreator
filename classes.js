@@ -11,8 +11,8 @@ class World {
         this.player = player;
         this.startText = startText;
     }
-    addPlace(name, place) {
-        this.places[name] = place;
+    addPlace(id, place) {
+        this.places[id] = place;
     }
     addItem(id, item) {
         this.items[id] = item;
@@ -38,13 +38,15 @@ class Player {
 }
 // Creates a class for places including properties such as including other nearby places, what items are in this location
 class Place {
+    placeID;
     name;
     description = "No further information";
     nearby = {};
     items = {};
     exits = {};
     hints;
-    constructor(name, description, hints) {
+    constructor(placeID, name, description, hints) {
+        this.placeID = placeID;
         this.name = name;
         this.description = description;
         this.nearby = {};
@@ -101,6 +103,8 @@ class Item {
     description;
     weight;
     durability;
+    parentContainerType;
+    parentContainerID;
     contents = {};
     alight = false;
     broken = false;
@@ -117,12 +121,14 @@ class Item {
     flammable = false;
     weapon = false;
     // Constructor for new items.
-    constructor(itemID, itemName, weight, description, durability) {
+    constructor(itemID, itemName, weight, description, durability, parentContainerType, parentContainerID) {
         this.itemID = itemID;
         this.description = description;
         this.itemName = itemName;
         this.weight = weight;
         this.durability = durability;
+        this.parentContainerType = parentContainerType;
+        this.parentContainerID = parentContainerID;
     }
     // Methods related to items
     addItem(name, item) {

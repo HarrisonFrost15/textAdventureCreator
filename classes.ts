@@ -14,8 +14,8 @@ class World{
         this.startText = startText
     }
 
-    addPlace(name:string, place:Place){
-        this.places[name]=place
+    addPlace(id:number, place:Place){
+        this.places[id]=place
     }
 
     addItem(id:number, item:Item){
@@ -46,6 +46,7 @@ class Player{
 
 // Creates a class for places including properties such as including other nearby places, what items are in this location
 class Place{
+    placeID: number
     name:string
     description:string = "No further information"
     nearby: Record <string, Place> = {}
@@ -53,7 +54,8 @@ class Place{
     exits: Record <string, Exit> = {}
     hints: string 
     
-    constructor(name:string, description:string, hints:string){
+    constructor(placeID:number, name:string, description:string, hints:string){
+        this.placeID = placeID
         this.name = name
         this.description = description
         this.nearby = {}
@@ -115,6 +117,8 @@ class Item {
     description: string
     weight: number
     durability: number
+    parentContainerType : string
+    parentContainerID : number
     contents: Record <string, Item> = {}
     alight: boolean = false
     broken: boolean = false
@@ -133,12 +137,14 @@ class Item {
 
 
     // Constructor for new items.
-    constructor(itemID:number, itemName:string, weight:number, description:string, durability:number) { 
+    constructor(itemID:number, itemName:string, weight:number, description:string, durability:number, parentContainerType : string, parentContainerID : number) { 
         this.itemID = itemID
         this.description = description
         this.itemName = itemName
         this.weight = weight
         this.durability = durability
+        this.parentContainerType = parentContainerType
+        this.parentContainerID = parentContainerID
     }
 
     // Methods related to items
