@@ -402,7 +402,7 @@ function execute (command:string){
             output (`You have broken the ${words[1]}`)
         } 
         
-        else if(gameWorld.player.place.items[words[1]]. breakable == false) {
+        else if(gameWorld.player.place.items[words[1]].breakable == false) {
             output ("You have overestimated your powers. This cannot be broken.")
         }
         else if(gameWorld.player.place.items[words[1]].broken == true){
