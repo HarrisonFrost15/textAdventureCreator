@@ -251,7 +251,7 @@ function execute(command) {
                 gameWorld.player.place.items[k] = container.contents[k];
                 delete container.contents[k];
             }
-            output(`You push the ${words[2]}`);
+            output(`You have pushed the ${words[1]}`);
         }
     }
     else if (words[0] == "hint") {
